@@ -2,9 +2,9 @@
 
 namespace OhDear\OhDearPulse;
 
+use OhDear\OhDearPulse\Commands\OhDearPulseCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use OhDear\OhDearPulse\Commands\OhDearPulseCommand;
 
 class OhDearPulseServiceProvider extends PackageServiceProvider
 {

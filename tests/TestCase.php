@@ -3,8 +3,8 @@
 namespace OhDear\OhDearPulse\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use OhDear\OhDearPulse\OhDearPulseServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
