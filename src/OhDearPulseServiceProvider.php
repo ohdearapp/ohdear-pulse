@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace OhDear\OhDearPulse;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use OhDear\OhDearPulse\Commands\OhDearPulseCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class OhDearPulseServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,10 +16,10 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('ohdear-pulse')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_skeleton_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasMigration('create_ohdear-pulse_table')
+            ->hasCommand(OhDearPulseCommand::class);
     }
 }
