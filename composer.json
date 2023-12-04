@@ -19,6 +19,7 @@
         "php": "^8.1",
         "illuminate/contracts": "^10.0",
         "laravel/pulse": "^1.0@beta",
+        "ohdearapp/ohdear-php-sdk": "^3.7",
         "spatie/laravel-package-tools": "^1.14.0"
     },
     "require-dev": {
