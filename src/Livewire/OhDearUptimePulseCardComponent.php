@@ -4,21 +4,19 @@ namespace OhDear\OhDearPulse\Livewire;
 
 use Carbon\CarbonInterval;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Support\Collection;
 use Laravel\Pulse\Livewire\Card;
 use Livewire\Attributes\Lazy;
 use OhDear\OhDearPulse\Livewire\Concerns\RemembersApiCalls;
 use OhDear\OhDearPulse\Livewire\Concerns\UsesOhDearApi;
 use OhDear\OhDearPulse\OhDearPulse;
-use OhDear\PhpSdk\OhDear;
 use OhDear\PhpSdk\Resources\Check;
 use OhDear\PhpSdk\Resources\Site;
 
 #[Lazy]
 class OhDearUptimePulseCardComponent extends Card
 {
-    use UsesOhDearApi;
     use RemembersApiCalls;
+    use UsesOhDearApi;
 
     public int $siteId;
 
@@ -47,8 +45,8 @@ class OhDearUptimePulseCardComponent extends Card
         }
 
         $siteAttributes = $this->remember(
-            fn() => $this->ohDear()?->site($this->siteId)?->attributes,
-            'site:' . $this->siteId,
+            fn () => $this->ohDear()?->site($this->siteId)?->attributes,
+            'site:'.$this->siteId,
             CarbonInterval::seconds(10),
         );
 
@@ -57,13 +55,13 @@ class OhDearUptimePulseCardComponent extends Card
 
     protected function getStatus(?Site $site): ?string
     {
-       if (! $site) {
-           return null;
-       }
+        if (! $site) {
+            return null;
+        }
 
-       if (! $check = $this->getCheck($site, 'uptime')) {
-           return null;
-       }
+        if (! $check = $this->getCheck($site, 'uptime')) {
+            return null;
+        }
 
         return $check->summary;
     }
@@ -83,7 +81,7 @@ class OhDearUptimePulseCardComponent extends Card
 
     protected function getCheck(Site $site, string $type): ?Check
     {
-       return collect($site->checks)
+        return collect($site->checks)
             ->first(fn (Check $check) => $check->type === $type);
     }
 }

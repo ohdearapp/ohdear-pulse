@@ -30,7 +30,7 @@ class OhDearPulseServiceProvider extends PackageServiceProvider
         });
 
         $this->app->bind('ohdear-pulse', function () {
-            if(! OhDearPulse::isConfigured()) {
+            if (! OhDearPulse::isConfigured()) {
                 return null;
             }
 
