@@ -8,14 +8,12 @@ use Livewire\Attributes\Lazy;
 use OhDear\OhDearPulse\Livewire\Concerns\RemembersApiCalls;
 use OhDear\OhDearPulse\Livewire\Concerns\UsesOhDearApi;
 use OhDear\OhDearPulse\OhDearPulse;
-use OhDear\PhpSdk\Resources\Check;
-use OhDear\PhpSdk\Resources\Site;
 
 #[Lazy]
 class OhDearBrokenLinksCardComponent extends Card
 {
-    use UsesOhDearApi;
     use RemembersApiCalls;
+    use UsesOhDearApi;
 
     public int $siteId;
 
@@ -43,8 +41,8 @@ class OhDearBrokenLinksCardComponent extends Card
         }
 
         return $this->remember(
-            fn() => $this->ohDear()?->brokenLinks($this->siteId),
-            'site:' . $this->siteId,
+            fn () => $this->ohDear()?->brokenLinks($this->siteId),
+            'site:'.$this->siteId,
         );
     }
 }

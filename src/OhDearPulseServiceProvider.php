@@ -2,7 +2,6 @@
 
 namespace OhDear\OhDearPulse;
 
-use Livewire\Livewire;
 use Livewire\LivewireManager;
 use OhDear\OhDearPulse\Livewire\OhDearBrokenLinksCardComponent;
 use OhDear\OhDearPulse\Livewire\OhDearCronPulseCardComponent;
