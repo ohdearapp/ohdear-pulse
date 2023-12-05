@@ -10,5 +10,4 @@ trait UsesOhDearApi
     {
         return app('ohdear-pulse');
     }
-
 }

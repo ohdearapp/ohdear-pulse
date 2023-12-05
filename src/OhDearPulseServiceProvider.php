@@ -25,7 +25,7 @@ class OhDearPulseServiceProvider extends PackageServiceProvider
         Livewire::component('ohdear.pulse.cron', OhDearCronPulseCardComponent::class);
 
         $this->app->bind('ohdear-pulse', function () {
-            if(! OhDearPulse::isConfigured()) {
+            if (! OhDearPulse::isConfigured()) {
                 return null;
             }
 
