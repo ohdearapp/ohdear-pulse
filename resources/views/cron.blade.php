@@ -1,7 +1,8 @@
 @php
     use Illuminate\Support\Str;
 @endphp
-<x-pulse::card :cols="$cols" :rows="$rows" :class="$class">
+
+<x-pulse::card id="ohdear" :cols="$cols" :rows="$rows" :class="$class">
     <x-pulse::card-header
         name="Cron"
     >
@@ -33,12 +34,12 @@
                         <tr class="h-2 first:h-0"></tr>
                         <tr wire:key="cronCheck.{{ $cronCheck->id }}">
                             <x-pulse::td class="max-w-[1px]">
-                                <code class="block text-xs text-gray-900 dark:text-gray-100 truncate"
+                                <code class="block text-xs text-gray-900 truncate dark:text-gray-100"
                                       title="{{ $cronCheck->name }}">
                                     {{ $cronCheck->name }}
                                 </code>
                             </x-pulse::td>
-                            <x-pulse::td class="text-gray-700 dark:text-gray-300 font-bold">
+                            <x-pulse::td class="font-bold text-gray-700 dark:text-gray-300">
                                 <div>
                                     {{ $cronCheck->humanReadableLatestPingAt }}
                                 </div>
@@ -47,11 +48,11 @@
                                 </div>
 
                             </x-pulse::td>
-                            <x-pulse::td class="text-gray-700 dark:text-gray-300 font-bold">
+                            <x-pulse::td class="font-bold text-gray-700 dark:text-gray-300">
                                 {{ $cronCheck->humanReadableCronExpression }}
                                 {{ $cronCheck->cronExpression }}
                             </x-pulse::td>
-                            <x-pulse::td class="text-gray-700 dark:text-gray-300 font-bold">
+                            <x-pulse::td class="font-bold text-gray-700 dark:text-gray-300">
                                 <div>
                                     {{ $cronCheck->latestResultLabel }}
                                 </div>

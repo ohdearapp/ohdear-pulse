@@ -1,7 +1,8 @@
 @php
     use Illuminate\Support\Str;
 @endphp
-<x-pulse::card :cols="$cols" :rows="$rows" :class="$class">
+
+<x-pulse::card id="ohdear" :cols="$cols" :rows="$rows" :class="$class">
     <x-pulse::card-header
         name="Broken Links"
     >
@@ -33,20 +34,20 @@
                         <tr class="h-2 first:h-0"></tr>
                         <tr wire:key="brokenLink.{{ md5($brokenLink->crawledUrl) }}">
                             <x-pulse::td class="max-w-[1px]">
-                                <code class="block text-xs text-gray-900 dark:text-gray-100 truncate">
+                                <code class="block text-gray-900 truncate dark:text-gray-100">
                                     {{ $brokenLink->statusCode }}
                                 </code>
                             </x-pulse::td>
-                            <x-pulse::td class="text-gray-700 dark:text-gray-300 font-bold">
+                            <x-pulse::td class="font-bold text-gray-700 dark:text-gray-300">
                                 <a target="_blank"
                                    href="{{ $brokenLink->crawledUrl  }}">{{ $brokenLink->relativeCrawledUrl }}</a>
 
                             </x-pulse::td>
-                            <x-pulse::td class="text-gray-700 dark:text-gray-300 font-bold">
+                            <x-pulse::td class="font-bold text-gray-700 dark:text-gray-300">
                                 <a target="_blank"
                                    href="{{ $brokenLink->foundOnUrl  }}">{{ $brokenLink->foundOnUrl }}</a>
                             </x-pulse::td>
-                            <x-pulse::td class="text-gray-700 dark:text-gray-300 font-bold">
+                            <x-pulse::td class="font-bold text-gray-700 dark:text-gray-300">
                                 {{ $brokenLink->linkText }}
                             </x-pulse::td>
                         </tr>
