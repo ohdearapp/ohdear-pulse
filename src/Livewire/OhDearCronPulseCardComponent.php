@@ -22,7 +22,7 @@ class OhDearCronPulseCardComponent extends Card
         return __DIR__.'/../../dist/output.css';
     }
 
-    public function mount(int $siteId = null)
+    public function mount(?int $siteId = null)
     {
         $this->siteId = $siteId ?? config('services.oh_dear.pulse.site_id');
     }

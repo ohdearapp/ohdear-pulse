@@ -17,7 +17,7 @@ class OhDearBrokenLinksCardComponent extends Card
 
     public int $siteId;
 
-    public function mount(int $siteId = null)
+    public function mount(?int $siteId = null)
     {
         $this->siteId = $siteId ?? config('services.oh_dear.pulse.site_id');
     }
