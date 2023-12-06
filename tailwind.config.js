@@ -4,7 +4,11 @@ module.exports = {
     important: "#ohdear",
     content: ["./resources/**/*.blade.php"],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                brand: "#FF3900",
+            },
+        },
     },
     plugins: [],
     corePlugins: {
