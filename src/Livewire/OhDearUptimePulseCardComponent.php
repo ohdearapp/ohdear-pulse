@@ -25,7 +25,7 @@ class OhDearUptimePulseCardComponent extends Card
         return __DIR__.'/../../dist/output.css';
     }
 
-    public function mount(int $siteId = null)
+    public function mount(?int $siteId = null)
     {
         $this->sites = collect();
 
