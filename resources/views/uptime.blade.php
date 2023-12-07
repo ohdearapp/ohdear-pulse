@@ -2,8 +2,20 @@
     use Illuminate\Support\Str;
 @endphp
 
+@push('scripts')
+<script>
+    console.log("This is the script from the uptime card.");
+</script>
+@endpush
+
+
 <x-pulse::card id="ohdear" :cols="$cols" :rows="$rows" :class="$class">
-    <div class="flex items-center justify-between space-x-2">
+    <div class="absolute top-0 right-0 z-0 w-32 h-32 rounded-tr-lg pattern-wavy pattern-blue-500 pattern-bg-transparent pattern-size-16 pattern-opacity-2"></div>
+    <div class="relative flex items-center justify-between space-x-2">
+        <div class="absolute top-0 flex justify-center w-full">
+            <div class="px-2 text-gray-900 rounded-full bg-emerald-400">online</div>
+        </div>
+
         <div class="flex items-center space-x-2">
             <x-ohdear-pulse::logo>
                 <x-ohdear-pulse::logo-uptime  />
@@ -19,15 +31,15 @@
         </div>
     </div>
 
-    <div class="grid h-full grid-cols-2 gap-4 mt-4">
-        <div class="flex flex-col items-center justify-center space-y-2 rounded-lg bg-emerald-300 dark:bg-emerald-800 ">
+    <div class="relative grid h-full grid-cols-1 gap-4 mt-4" id="performance">
+        {{-- <div class="flex flex-col items-center justify-center space-y-2 rounded-lg bg-emerald-300 dark:bg-emerald-800 ">
             <span class="text-2xl font-bold text-emerald-900 dark:text-white">{{ $status }}</span>
             <span class="text-xs font-medium tracking-wider uppercase text-emerald-700 dark:text-white/50 ">Status</span>
         </div>
         <div class="flex flex-col items-center justify-center space-y-2 rounded-lg bg-emerald-300 dark:bg-emerald-800">
             <span class="text-2xl font-bold text-emerald-900 dark:text-white">{{ $performance }}</span>
             <span class="text-xs font-medium tracking-wider uppercase text-emerald-700 dark:text-white/50 ">Performance</span>
-        </div>
+        </div> --}}
     </div>
 
 
