@@ -52,11 +52,16 @@
                                         borderColor: '#55B685',
                                         data: @js($this->getData()),
                                         borderCapStyle: 'round',
-                                        pointHitRadius: 10,
-                                        pointStyle: false,
+                                        pointHitRadius: 20,
+                                        pointRadius: 0,
                                         tension: 0.2,
                                         borderWidth: 1,
                                         fill: true,
+                                        hover: {
+                                            mode: 'nearest'
+                                        },
+                                        pointHoverRadius: 3,
+                                        pointHoverBackgroundColor: '#55B685',
                                         backgroundColor: function(context) {
                                             const chart = context.chart;
                                             const {ctx, chartArea} = chart;
@@ -78,7 +83,10 @@
                                         top: 1,
                                     },
                                 },
-
+                                interaction: {
+                                    mode: 'index',
+                                    intersect: true,
+                                },
                                 scales: {
                                     x: {
                                         display: false,
@@ -96,7 +104,7 @@
                                     tooltip: {
                                         mode: 'index',
                                         position: 'nearest',
-                                        intersect: false,
+                                        intersect: true,
                                         callbacks: {
                                             beforeBody: (context) => context
                                                 .map(item => `${item.dataset.label}: ${item.formattedValue}ms`)
