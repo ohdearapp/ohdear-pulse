@@ -2,8 +2,10 @@
     use Illuminate\Support\Str;
 @endphp
 
-<x-pulse::card id="ohdear" :cols="$cols" :rows="$rows" :class="$class">
+<x-pulse::card id="ohdear" :cols="$cols" :rows="$rows" :class="$class . 'overflow-hidden'">
+    <div class="absolute bottom-[-1px] left-0 w-full h-full rounded-lg  bg-gradient-to-t from-gray-100 to-gray-100/0 dark:from-gray-800/30 dark:to-gray-800/0 bg-grid"></div>
     <div class="absolute top-0 right-0 z-0 w-32 h-32 rounded-tr-lg pattern-wavy pattern-blue-500 pattern-bg-transparent pattern-size-16 pattern-opacity-2"></div>
+
     <div class="relative flex items-center justify-between space-x-2">
 
         <div class="absolute top-0 flex justify-center w-full py-0.5">
