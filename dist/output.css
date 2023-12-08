@@ -639,6 +639,11 @@
   color: rgb(255 57 0 / var(--tw-text-opacity));
 }
 
+#ohdear :is(.hover\:\!text-brand:hover) {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 57 0 / var(--tw-text-opacity)) !important;
+}
+
 #ohdear :is(.dark .dark\:border-t) {
   border-top-width: 1px;
 }

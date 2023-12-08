@@ -21,8 +21,8 @@
         </div>
 
         <div class="relative">
-            <a href="https://ohdear.app/sites/{{config('services.oh_dear.pulse.site_id')}}/check/uptime/report" target="_blank" class="text-xs font-bold text-gray-700 uppercase transition-colors dark:text-gray-400 dark:hover:text-brand ">
-                <x-ohdear-pulse::logo-ohdear class="inline-block w-10" />
+            <a href="https://ohdear.app/sites/{{config('services.oh_dear.pulse.site_id')}}/check/uptime/report" target="_blank">
+                <x-ohdear-pulse::logo-ohdear />
             </a>
         </div>
     </div>
