@@ -13,7 +13,7 @@
         </div>
 
         <div>
-            <a href="https://ohdear.app/sites/{{config('services.oh_dear.pulse.site_id')}}/check/broken-links/report" target="_blank" class="text-xs font-bold text-gray-700 uppercase transition-colors dark:text-gray-400 dark:hover:text-brand ">
+            <a href="https://ohdear.app/sites/{{config('services.oh_dear.pulse.site_id')}}/check/broken-links/report" target="_blank" class="text-xs font-bold text-gray-700 uppercase transition-colors dark:text-gray-400 hover:text-brand ">
                 <x-ohdear-pulse::logo-ohdear class="inline-block w-10" />
             </a>
         </div>
@@ -35,21 +35,21 @@
                     @foreach ($brokenLinks as $brokenLink)
                         <tr class="h-2 first:h-0"></tr>
                         <tr wire:key="brokenLink.{{ md5($brokenLink->crawledUrl) }}">
-                            <x-pulse::td class="px-4 ">
+                            <x-pulse::td class="px-4 dark:bg-gray-800">
                                 <x-ohdear-pulse::response-code :code="$brokenLink->statusCode">
                                     {{$brokenLink->statusCode}}
                                 </x-ohdear-pulse::response-code>
                             </x-pulse::td>
-                            <x-pulse::td class="w-[29%]  text-gray-700 dark:text-gray-300">
+                            <x-pulse::td class="w-[29%]  text-gray-700 dark:text-gray-300 dark:bg-gray-800">
                                 <div class="w-full truncate">
                                      <a target="_blank" href="{{ $brokenLink->crawledUrl  }}">{{ $brokenLink->relativeCrawledUrl }}</a>
                                 </div>
                             </x-pulse::td>
-                            <x-pulse::td class="max-w-[25%] text-gray-700 truncate dark:text-gray-300">
+                            <x-pulse::td class="max-w-[25%] text-gray-700 truncate dark:text-gray-300 dark:bg-gray-800">
                                 <a target="_blank"
                                    href="{{ $brokenLink->foundOnUrl  }}">{{ $brokenLink->foundOnUrl }}</a>
                             </x-pulse::td>
-                            <x-pulse::td class="text-gray-700 truncate dark:text-gray-300">
+                            <x-pulse::td class="text-gray-700 truncate dark:text-gray-300 dark:bg-gray-800">
                                 {{ $brokenLink->linkText }}
                             </x-pulse::td>
                         </tr>

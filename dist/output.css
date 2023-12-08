@@ -98,12 +98,20 @@
   --tw-backdrop-sepia:  
 }
 
+#ohdear :is(.static) {
+  position: static
+}
+
 #ohdear :is(.absolute) {
   position: absolute
 }
 
 #ohdear :is(.relative) {
   position: relative
+}
+
+#ohdear :is(.left-0) {
+  left: 0px
 }
 
 #ohdear :is(.right-0) {
@@ -158,6 +166,10 @@
   width: 2.5rem
 }
 
+#ohdear :is(.w-2) {
+  width: 0.5rem
+}
+
 #ohdear :is(.w-32) {
   width: 8rem
 }
@@ -206,10 +218,6 @@
   grid-template-columns: repeat(1, minmax(0, 1fr))
 }
 
-#ohdear :is(.grid-cols-3) {
-  grid-template-columns: repeat(3, minmax(0, 1fr))
-}
-
 #ohdear :is(.flex-col) {
   flex-direction: column
 }
@@ -226,10 +234,6 @@
   justify-content: space-between
 }
 
-#ohdear :is(.gap-3) {
-  gap: 0.75rem
-}
-
 #ohdear :is(.gap-4) {
   gap: 1rem
 }
@@ -238,16 +242,16 @@
   gap: 1.5rem
 }
 
+#ohdear :is(.space-x-1 > :not([hidden]) ~ :not([hidden])) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.25rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)))
+}
+
 #ohdear :is(.space-x-2 > :not([hidden]) ~ :not([hidden])) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))
-}
-
-#ohdear :is(.space-y-2 > :not([hidden]) ~ :not([hidden])) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse))
 }
 
 #ohdear :is(.truncate) {
@@ -268,10 +272,6 @@
   border-radius: 9999px
 }
 
-#ohdear :is(.rounded-lg) {
-  border-radius: 0.5rem
-}
-
 #ohdear :is(.rounded-tr-lg) {
   border-top-right-radius: 0.5rem
 }
@@ -286,14 +286,24 @@
   background-color: rgb(209 250 229 / var(--tw-bg-opacity))
 }
 
-#ohdear :is(.bg-emerald-300) {
+#ohdear :is(.bg-emerald-400) {
   --tw-bg-opacity: 1;
-  background-color: rgb(110 231 183 / var(--tw-bg-opacity))
+  background-color: rgb(52 211 153 / var(--tw-bg-opacity))
 }
 
 #ohdear :is(.bg-gray-200) {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity))
+}
+
+#ohdear :is(.bg-gray-600) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity))
+}
+
+#ohdear :is(.bg-green-500) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity))
 }
 
 #ohdear :is(.bg-indigo-100) {
@@ -331,19 +341,9 @@
   background-color: rgb(254 249 195 / var(--tw-bg-opacity))
 }
 
-#ohdear :is(.bg-emerald-700) {
+#ohdear :is(.bg-emerald-500) {
   --tw-bg-opacity: 1;
-  background-color: rgb(4 120 87 / var(--tw-bg-opacity))
-}
-
-#ohdear :is(.bg-gray-800) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(31 41 55 / var(--tw-bg-opacity))
-}
-
-#ohdear :is(.bg-emerald-400) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(52 211 153 / var(--tw-bg-opacity))
+  background-color: rgb(16 185 129 / var(--tw-bg-opacity))
 }
 
 #ohdear :is(.px-1) {
@@ -391,6 +391,10 @@
   padding-bottom: 1px
 }
 
+#ohdear :is(.pt-4) {
+  padding-top: 1rem
+}
+
 #ohdear :is(.text-center) {
   text-align: center
 }
@@ -399,19 +403,14 @@
   text-align: right
 }
 
-#ohdear :is(.text-2xl) {
-  font-size: 1.5rem;
-  line-height: 2rem
-}
-
 #ohdear :is(.text-base) {
   font-size: 1rem;
   line-height: 1.5rem
 }
 
-#ohdear :is(.text-xl) {
-  font-size: 1.25rem;
-  line-height: 1.75rem
+#ohdear :is(.text-sm) {
+  font-size: 0.875rem;
+  line-height: 1.25rem
 }
 
 #ohdear :is(.text-xs) {
@@ -431,15 +430,6 @@
   text-transform: uppercase
 }
 
-#ohdear :is(.tabular-nums) {
-  --tw-numeric-spacing: tabular-nums;
-  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction)
-}
-
-#ohdear :is(.tracking-wider) {
-  letter-spacing: 0.05em
-}
-
 #ohdear :is(.text-amber-700) {
   --tw-text-opacity: 1;
   color: rgb(180 83 9 / var(--tw-text-opacity))
@@ -450,19 +440,9 @@
   color: rgb(4 120 87 / var(--tw-text-opacity))
 }
 
-#ohdear :is(.text-emerald-900) {
-  --tw-text-opacity: 1;
-  color: rgb(6 78 59 / var(--tw-text-opacity))
-}
-
 #ohdear :is(.text-gray-400) {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity))
-}
-
-#ohdear :is(.text-gray-500) {
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity))
 }
 
 #ohdear :is(.text-gray-600) {
@@ -525,11 +505,6 @@
   color: rgb(161 98 7 / var(--tw-text-opacity))
 }
 
-#ohdear :is(.text-emerald-200) {
-  --tw-text-opacity: 1;
-  color: rgb(167 243 208 / var(--tw-text-opacity))
-}
-
 #ohdear :is(.transition-colors) {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -549,9 +524,9 @@
   background-color: rgb(4 120 87 / 0.5)
 }
 
-#ohdear :is(.dark .dark\:bg-emerald-800) {
+#ohdear :is(.dark .dark\:bg-gray-800) {
   --tw-bg-opacity: 1;
-  background-color: rgb(6 95 70 / var(--tw-bg-opacity))
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity))
 }
 
 #ohdear :is(.dark .dark\:bg-orange-700\/50) {
@@ -578,6 +553,11 @@
   color: rgb(156 163 175 / var(--tw-text-opacity))
 }
 
+#ohdear :is(.dark .dark\:text-gray-500) {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity))
+}
+
 #ohdear :is(.dark .dark\:text-gray-600) {
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity))
@@ -586,15 +566,6 @@
 #ohdear :is(.dark .dark\:text-orange-200) {
   --tw-text-opacity: 1;
   color: rgb(254 215 170 / var(--tw-text-opacity))
-}
-
-#ohdear :is(.dark .dark\:text-white) {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity))
-}
-
-#ohdear :is(.dark .dark\:text-white\/50) {
-  color: rgb(255 255 255 / 0.5)
 }
 
 #ohdear :is(.dark .dark\:hover\:text-brand:hover) {

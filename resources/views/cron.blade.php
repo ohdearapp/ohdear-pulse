@@ -34,14 +34,14 @@
                 @foreach ($cronChecks as $cronCheck)
                     <tr class="h-2 first:h-0"></tr>
                     <tr wire:key="cronCheck.{{ $cronCheck->id }}">
-                        <x-pulse::td class="px-4">
+                        <x-pulse::td class="px-4 dark:bg-gray-800">
                             <code class="block text-xs text-gray-900 truncate dark:text-gray-100" title="{{ $cronCheck->name }}">
                                 <a  href="https://ohdear.app/sites/{{config('services.oh_dear.pulse.site_id')}}/check/scheduled-tasks/{{$cronCheck->id}}" target="_blank">
                                     {{ $cronCheck->name }}
                                 </a>
                             </code>
                         </x-pulse::td>
-                        <x-pulse::td class="">
+                        <x-pulse::td class="dark:bg-gray-800">
                             <div class="flex flex-col text-gray-700 dark:text-gray-300">
                                 <div>
                                     {{ $cronCheck->humanReadableLatestPingAt }}
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </x-pulse::td>
-                        <x-pulse::td class="text-gray-700 dark:text-gray-300">
+                        <x-pulse::td class="text-gray-700 dark:text-gray-300 dark:bg-gray-800">
                             <div class="flex flex-col text-gray-700 dark:text-gray-300">
                                 <div>
                                    {{ $cronCheck->humanReadableCronExpression }}
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                         </x-pulse::td>
-                        <x-pulse::td class="px-4 text-right text-gray-700 dark:text-gray-300">
+                        <x-pulse::td class="px-4 text-right text-gray-700 dark:text-gray-300 dark:bg-gray-800">
                             <x-ohdear-pulse::pill :class="$class ?? ''" :color="$cronCheck->latestResultLabelColor">{{ $cronCheck->latestResultLabel }}</x-ohdear-pulse::pill>
                         </x-pulse::td>
                     </tr>

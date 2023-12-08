@@ -2,7 +2,7 @@
 module.exports = {
     darkMode: "class",
     important: "#ohdear",
-    content: ["./resources/**/*.blade.php"],
+    content: ["./resources/**/*.blade.php", "./src/**/*.php"],
     theme: {
         extend: {
             colors: {

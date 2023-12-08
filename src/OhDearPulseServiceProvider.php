@@ -2,14 +2,15 @@
 
 namespace OhDear\OhDearPulse;
 
-use Illuminate\Support\Facades\Blade;
-use Livewire\LivewireManager;
-use OhDear\OhDearPulse\Livewire\OhDearBrokenLinksCardComponent;
-use OhDear\OhDearPulse\Livewire\OhDearCronPulseCardComponent;
-use OhDear\OhDearPulse\Livewire\OhDearUptimePulseCardComponent;
+use Livewire\Livewire;
 use OhDear\PhpSdk\OhDear;
+use Livewire\LivewireManager;
+use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use OhDear\OhDearPulse\Livewire\OhDearCronPulseCardComponent;
+use OhDear\OhDearPulse\Livewire\OhDearBrokenLinksCardComponent;
+use OhDear\OhDearPulse\Livewire\OhDearUptimePulseCardComponent;
 
 class OhDearPulseServiceProvider extends PackageServiceProvider
 {
@@ -27,8 +28,6 @@ class OhDearPulseServiceProvider extends PackageServiceProvider
             $livewire->component('ohdear.pulse.uptime', OhDearUptimePulseCardComponent::class);
             $livewire->component('ohdear.pulse.cron', OhDearCronPulseCardComponent::class);
             $livewire->component('ohdear.pulse.brokenLinks', OhDearBrokenLinksCardComponent::class);
-
-            // Blade::componentNamespace('OhDear\\OhDearPulse\\View\\Components', 'ohdear');
         });
 
         $this->app->bind('ohdear-pulse', function () {
