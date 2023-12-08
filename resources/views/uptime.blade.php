@@ -5,11 +5,12 @@
 <x-pulse::card id="ohdear" :cols="$cols" :rows="$rows" :class="$class">
     <div class="absolute top-0 right-0 z-0 w-32 h-32 rounded-tr-lg pattern-wavy pattern-blue-500 pattern-bg-transparent pattern-size-16 pattern-opacity-2"></div>
     <div class="relative flex items-center justify-between space-x-2">
+
         <div class="absolute top-0 flex justify-center w-full py-0.5">
-            <div class="px-2 text-sm font-bold text-gray-900 rounded-full {{$this->getStatusColor()}}">{{ $status }}</div>
+            <div class="px-2 text-sm font-bold shadow-2xl rounded-full  {{$this->getStatusColor()}}">{{ $status }}</div>
         </div>
 
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center space-x-2 !ml-0 relative">
             <x-ohdear-pulse::logo>
                 <x-ohdear-pulse::logo-uptime  />
             </x-ohdear-pulse::logo>
@@ -17,21 +18,24 @@
             <h2 class="text-base font-bold text-gray-600 truncate dark:text-gray-300" title="Broken Links">Uptime</h2>
         </div>
 
-        <div>
+        <div class="relative">
             <a href="https://ohdear.app/sites/{{config('services.oh_dear.pulse.site_id')}}/check/uptime/report" target="_blank" class="text-xs font-bold text-gray-700 uppercase transition-colors dark:text-gray-400 dark:hover:text-brand ">
                 <x-ohdear-pulse::logo-ohdear class="inline-block w-10" />
             </a>
         </div>
     </div>
 
-    <div class="relative grid h-full grid-cols-1 gap-4 pt-4 mt-4" id="performance">
-        <div class="absolute top-0 left-0 flex items-center space-x-1 text-xs">
-            <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+    <div class="absolute top-0 left-0 grid w-full h-[calc(100%-4rem)] grid-cols-1 gap-4 mt-20 overflow-hidden" id="performance">
+        <div class="w-[1px] h-[calc(100%-3rem)] absolute border top-1 left-[2.15rem] border-dashed border-emerald-400/20 dark:border-emerald-400/10"></div>
+        <div class="absolute top-0 flex items-center px-6 space-x-1 text-xs left-2">
+            <div class="relative flex items-center justify-center w-2 h-2 rounded-full bg-emerald-500 dark:border-t dark:bg-gradient-to-t dark:from-emerald-400 dark:border-emerald-200 dark:to-emerald-300">
+
+            </div>
             <span>{{$this->getData()[0][1]}}ms</span>
         </div>
         <div
             wire:ignore
-            class="h-full"
+            class="absolute top-0 w-full h-full left-9"
             x-data="{
                 init() {
                     let chart = new Chart(
@@ -131,10 +135,10 @@
         >
             <canvas x-ref="uptime" class=""></canvas>
         </div>
-        <div class="flex justify-between text-xs dark:text-gray-500">
+        <div class="absolute flex justify-between w-full px-6 text-xs text-gray-400 bottom-8 dark:text-gray-500">
             <span>Now</span>
 
-            <span>{{\Carbon\Carbon::createFromTimestamp($this->getData()[count($this->getData()) -1][0]/1000)->diffInMinutes(now(), true)}} min ago</span>
+            <span>{{\Carbon\Carbon::createFromTimestamp($this->getData()[count($this->getData()) -2][0]/1000)->diffInMinutes(now(), true)}} min ago</span>
         </div>
     </div>
 

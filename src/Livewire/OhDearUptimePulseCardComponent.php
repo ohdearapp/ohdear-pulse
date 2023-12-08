@@ -79,6 +79,10 @@ class OhDearUptimePulseCardComponent extends Card
                 now()->addMinutes(-10)->timestamp * 1000,
                 75,
             ],
+            [
+                now()->addMinutes(-11)->timestamp * 1000,
+                80,
+            ],
         ])->toArray();
     }
 
@@ -139,7 +143,7 @@ class OhDearUptimePulseCardComponent extends Card
     protected function getStatusColor()
     {
         return match($this->getStatus($this->getSite())) {
-            'Online' => 'bg-emerald-500',
+            'Online' => 'dark:bg-gradient-to-t dark:from-emerald-500 dark:to-emerald-400 bg-emerald-100 text-emerald-800 dark:border-emerald-300 dark:text-gray-900 dark:border-t',
             default => 'bg-gray-600',
         };
     }
