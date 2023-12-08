@@ -4,14 +4,14 @@ namespace OhDear\OhDearPulse\Livewire;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
-use Livewire\Attributes\Lazy;
-use Laravel\Pulse\Livewire\Card;
-use OhDear\PhpSdk\Resources\Site;
-use OhDear\PhpSdk\Resources\Check;
-use OhDear\OhDearPulse\OhDearPulse;
 use Illuminate\Contracts\Support\Renderable;
-use OhDear\OhDearPulse\Livewire\Concerns\UsesOhDearApi;
+use Laravel\Pulse\Livewire\Card;
+use Livewire\Attributes\Lazy;
 use OhDear\OhDearPulse\Livewire\Concerns\RemembersApiCalls;
+use OhDear\OhDearPulse\Livewire\Concerns\UsesOhDearApi;
+use OhDear\OhDearPulse\OhDearPulse;
+use OhDear\PhpSdk\Resources\Check;
+use OhDear\PhpSdk\Resources\Site;
 
 #[Lazy]
 class OhDearUptimePulseCardComponent extends Card
@@ -33,7 +33,8 @@ class OhDearUptimePulseCardComponent extends Card
         $this->siteId = $siteId ?? config('services.oh_dear.pulse.site_id');
     }
 
-    public function getData() {
+    public function getData()
+    {
         return collect([
             [
                 now()->timestamp * 1000,
@@ -90,11 +91,11 @@ class OhDearUptimePulseCardComponent extends Card
     {
 
         return collect($this->getData())
-                ->map(function (array $dataPoint) {
-                    return Carbon::createFromTimestamp($dataPoint[0]/1000)
-                        ->format('Y-m-d H:i');
-                })
-                ->toArray();
+            ->map(function (array $dataPoint) {
+                return Carbon::createFromTimestamp($dataPoint[0] / 1000)
+                    ->format('Y-m-d H:i');
+            })
+            ->toArray();
     }
 
     public function render(): Renderable
@@ -134,7 +135,7 @@ class OhDearUptimePulseCardComponent extends Card
             return null;
         }
 
-        return match($check->summary) {
+        return match ($check->summary) {
             'Up' => 'Online',
             default => $check->summary,
         };
