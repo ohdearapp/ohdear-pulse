@@ -5,8 +5,6 @@ namespace OhDear\OhDearPulse\Checks\Checks;
 use Laravel\Pulse\Facades\Pulse;
 use OhDear\OhDearPulse\Checks\Check;
 use OhDear\OhDearPulse\Checks\Result;
-use Spatie\Regex\Regex;
-use Symfony\Component\Process\Process;
 
 class UsedDiskSpaceCheck extends Check
 {

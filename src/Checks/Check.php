@@ -52,6 +52,4 @@ abstract class Check
     }
 
     abstract public function run(): Result;
-
-
 }
