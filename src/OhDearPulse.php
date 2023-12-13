@@ -8,4 +8,6 @@ class OhDearPulse
     {
         return config('services.oh_dear.pulse.api_key') !== null;
     }
+
+
 }

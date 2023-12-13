@@ -35,5 +35,12 @@ class OhDearPulseServiceProvider extends PackageServiceProvider
 
             return new OhDear(config('services.oh_dear.pulse.api_key'));
         });
+
+        /*
+        OhDearPulse::monitor(
+            DiskSpaceCheck::new()
+                ->warnIfTooHigh(80)
+        );
+        */
     }
 }
