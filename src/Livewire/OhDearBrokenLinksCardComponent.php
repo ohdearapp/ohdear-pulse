@@ -40,9 +40,9 @@ class OhDearBrokenLinksCardComponent extends Card
             return null;
         }
 
-        return ray()->pass($this->remember(
+        return $this->remember(
             fn () => $this->ohDear()?->brokenLinks($this->siteId),
             'site:'.$this->siteId,
-        ));
+        );
     }
 }
