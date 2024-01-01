@@ -37,13 +37,13 @@ class OhDearBrokenLinksCardComponent extends Card
      */
     public function getBrokenLinks(): ?array
     {
-        if (!$this->isConfigured()) {
+        if (! $this->isConfigured()) {
             return null;
         }
 
         return $this->remember(
-            fn() => $this->ohDear()?->brokenLinks($this->siteId),
-            'site:' . $this->siteId,
+            fn () => $this->ohDear()?->brokenLinks($this->siteId),
+            'site:'.$this->siteId,
             CarbonInterval::minutes(15)
         );
     }
