@@ -5,15 +5,21 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/ohdearapp/ohdear-pulse/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/ohdearapp/ohdear-pulse/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/ohdearapp/ohdear-pulse.svg?style=flat-square)](https://packagist.org/packages/ohdearapp/ohdear-pulse)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This package contains Pulse cards that show results from [Oh Dear](https://ohdear.app) in your [Laravel Pulse](https://pulse.laravel.com) dashboard.
 
-## Support us
+Currently, there are three cards available:
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/ohdear-pulse.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/ohdear-pulse)
+- [Uptime and Performance](https://ohdear.app/docs/features/uptime-monitoring)
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+TODO: add screenshot
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+- [Cron Job Monitoring](https://ohdear.app/docs/features/cron-job-monitoring)
+
+TODO: add screenshot
+
+- [Broken links](https://ohdear.app/docs/features/broken-links-detection)
+- 
+TODO: add screenshot
 
 ## Installation
 
@@ -23,37 +29,45 @@ You can install the package via composer:
 composer require ohdearapp/ohdear-pulse
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="ohdear-pulse-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="ohdear-pulse-config"
-```
-
-This is the contents of the published config file:
+In your `config/services.php` file, add the following lines:
 
 ```php
-return [
-];
+'oh_dear' => [
+    'pulse' => [
+        'api_key' => env('OH_DEAR_API_TOKEN'),
+        'site_id' => env('OH_DEAR_SITE_ID'),
+    ],
+],
 ```
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="ohdear-pulse-views"
-```
+You can create an API token on the "API Tokens" page at Oh Dear. You'll find the site ID on the "Settings" page of a site on Oh Dear.
 
 ## Usage
 
-```php
-$ohDearPulse = new OhDear\OhDearPulse();
-echo $ohDearPulse->echoPhrase('Hello, OhDear!');
+There are currently three cards available:
+
+- `ohdear.pulse.uptime`: displays the uptime and performance of a site
+- `ohdear.pulse.cron`: displays the results of the cron job monitoring
+- `ohdear.pulse.brokenLinks`: displays any broken links that were detected
+
+You can add the cards to your Pulse dashboard, by first publishing the Pulse's dashboard view:
+
+```bash
+php artisan vendor:publish --tag=pulse-dashboard
+```
+
+Next, add the cards to the `resources/views/vendor/pulse/dashboard.blade.php` file:
+
+```html
+<x-pulse>
+    <livewire:ohdear.pulse.uptime cols="4" />
+    
+    <livewire:ohdear.pulse.cron cols="8" />
+
+    <livewire:ohdear.pulse.brokenLinks cols="8" />
+    
+    {{-- Add more cards here --}}
+</x-pulse>
 ```
 
 ## Testing

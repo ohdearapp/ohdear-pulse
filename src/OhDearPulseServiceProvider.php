@@ -16,7 +16,6 @@ class OhDearPulseServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('ohdear-pulse')
-            ->hasConfigFile()
             ->hasViews();
     }
 
