@@ -15,7 +15,7 @@ class OhDearBrokenLinksCardComponent extends Card
     use RemembersApiCalls;
     use UsesOhDearApi;
 
-    public int $siteId;
+    public ?int $siteId = null;
 
     public function mount(?int $siteId = null)
     {
@@ -27,6 +27,7 @@ class OhDearBrokenLinksCardComponent extends Card
         $brokenLinks = $this->getBrokenLinks();
 
         return view('ohdear-pulse::brokenLinks', [
+            'isConfigured' => $this->isConfigured(),
             'brokenLinks' => $brokenLinks,
         ]);
     }
@@ -36,7 +37,7 @@ class OhDearBrokenLinksCardComponent extends Card
      */
     public function getBrokenLinks(): ?array
     {
-        if (! OhDearPulse::isConfigured()) {
+        if (! $this->isConfigured()) {
             return null;
         }
 

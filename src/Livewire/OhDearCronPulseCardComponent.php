@@ -15,7 +15,7 @@ class OhDearCronPulseCardComponent extends Card
     use RemembersApiCalls;
     use UsesOhDearApi;
 
-    public int $siteId;
+    public ?int $siteId;
 
     protected function css()
     {
@@ -32,6 +32,7 @@ class OhDearCronPulseCardComponent extends Card
         $cronChecks = $this->getCronChecks();
 
         return view('ohdear-pulse::cron', [
+            'isConfigured' => $this->isConfigured(),
             'cronChecks' => $cronChecks,
         ]);
     }
@@ -41,7 +42,7 @@ class OhDearCronPulseCardComponent extends Card
      */
     public function getCronChecks(): ?array
     {
-        if (! OhDearPulse::isConfigured()) {
+        if (! $this->isConfigured()) {
             return null;
         }
 

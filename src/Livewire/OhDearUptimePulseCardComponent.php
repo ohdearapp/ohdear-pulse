@@ -107,6 +107,7 @@ class OhDearUptimePulseCardComponent extends Card
             'status' => $this->getStatus($site),
             'statusColor' => $this->getStatusColor(),
             'performance' => $this->getPerformance($site),
+            'isConfigured' => $this->isConfigured(),
         ]);
     }
 
