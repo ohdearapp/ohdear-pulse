@@ -7,7 +7,6 @@ use Laravel\Pulse\Livewire\Card;
 use Livewire\Attributes\Lazy;
 use OhDear\OhDearPulse\Livewire\Concerns\RemembersApiCalls;
 use OhDear\OhDearPulse\Livewire\Concerns\UsesOhDearApi;
-use OhDear\OhDearPulse\OhDearPulse;
 
 #[Lazy]
 class OhDearBrokenLinksCardComponent extends Card
