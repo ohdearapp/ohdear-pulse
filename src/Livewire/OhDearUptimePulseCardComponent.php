@@ -89,7 +89,6 @@ class OhDearUptimePulseCardComponent extends Card
 
     protected function getLabels(): array
     {
-
         return collect($this->getData())
             ->map(function (array $dataPoint) {
                 return Carbon::createFromTimestamp($dataPoint[0] / 1000)

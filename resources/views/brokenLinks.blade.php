@@ -59,7 +59,7 @@
                                 <x-pulse::td
                                     class="max-w-[25%] text-gray-700 truncate dark:text-gray-300 dark:bg-gray-800">
                                     <a target="_blank"
-                                       href="{{ $brokenLink->foundOnUrl  }}">{{ $brokenLink->foundOnUrl }}</a>
+                                       href="{{ $brokenLink->foundOnUrl  }}">{{ $brokenLink->relativeFoundOnUrl }}</a>
                                 </x-pulse::td>
                                 <x-pulse::td class="text-gray-700 truncate dark:text-gray-300 dark:bg-gray-800">
                                     {{ $brokenLink->linkText }}

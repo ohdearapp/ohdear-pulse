@@ -151,6 +151,4 @@
             <span>{{\Carbon\Carbon::createFromTimestamp($this->getData()[count($this->getData()) -2][0]/1000)->diffInMinutes(now(), true)}} min ago</span>
         </div>
     </div>
-
-    </div>
 </x-pulse::card>
