@@ -11,15 +11,15 @@ Currently, there are three cards available:
 
 - [Uptime and Performance](https://ohdear.app/docs/features/uptime-monitoring)
 
-TODO: add screenshot
+![screenshot](https://github.com/ohdearapp/ohdear-pulse/blob/main/docs/uptime.png?raw=true)
 
 - [Cron Job Monitoring](https://ohdear.app/docs/features/cron-job-monitoring)
 
-TODO: add screenshot
+![screenshot](https://github.com/ohdearapp/ohdear-pulse/blob/main/docs/cron.png?raw=true)
 
 - [Broken links](https://ohdear.app/docs/features/broken-links-detection)
-- 
-TODO: add screenshot
+
+![screenshot](https://github.com/ohdearapp/ohdear-pulse/blob/main/docs/broken-links.png?raw=true)
 
 ## Installation
 
