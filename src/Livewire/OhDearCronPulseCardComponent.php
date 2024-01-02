@@ -45,7 +45,7 @@ class OhDearCronPulseCardComponent extends Card
             return null;
         }
 
-        return $this->remember(
+        return $this->rememberApiCall(
             fn () => $this->ohDear()?->cronChecks($this->siteId),
             'site:'.$this->siteId,
         );

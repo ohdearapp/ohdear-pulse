@@ -41,7 +41,7 @@ class OhDearBrokenLinksCardComponent extends Card
             return null;
         }
 
-        return $this->remember(
+        return $this->rememberApiCall(
             fn () => $this->ohDear()?->brokenLinks($this->siteId),
             'site:'.$this->siteId,
             CarbonInterval::minutes(15)

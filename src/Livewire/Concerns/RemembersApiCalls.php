@@ -8,7 +8,7 @@ use Laravel\Pulse\Support\CacheStoreResolver;
 
 trait RemembersApiCalls
 {
-    public function remember(callable $apiCall, string $key, ?CarbonInterval $interval = null): mixed
+    public function rememberApiCall(callable $apiCall, string $key, ?CarbonInterval $interval = null): mixed
     {
         $interval ??= CarbonInterval::minute();
 

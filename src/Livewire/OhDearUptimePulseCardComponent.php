@@ -116,7 +116,7 @@ class OhDearUptimePulseCardComponent extends Card
             return null;
         }
 
-        $siteAttributes = $this->remember(
+        $siteAttributes = $this->rememberApiCall(
             fn () => $this->ohDear()?->site($this->siteId)?->attributes,
             'site:'.$this->siteId,
             CarbonInterval::seconds(10),
