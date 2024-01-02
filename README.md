@@ -11,7 +11,7 @@ Currently, there are three cards available:
 
 - [Uptime and Performance](https://ohdear.app/docs/features/uptime-monitoring)
 
-![screenshot](https://github.com/ohdearapp/ohdear-pulse/blob/main/docs/uptime.png?raw=true)
+![screenshot](https://github.com/ohdearapp/ohdear-pulse/blob/main/docs/uptime.png?raw=true | width=100)
 
 - [Cron Job Monitoring](https://ohdear.app/docs/features/cron-job-monitoring)
 
