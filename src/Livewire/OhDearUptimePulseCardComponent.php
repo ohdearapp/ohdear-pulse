@@ -44,13 +44,13 @@ class OhDearUptimePulseCardComponent extends Card
 
         $performanceRecords = collect($performanceRecords)
             ->map(function (PerformanceRecord $record) {
-            $createdAt = Carbon::createFromFormat("Y-m-d H:i:s", $record->createdAt);
+                $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $record->createdAt);
 
-            return [
-                $createdAt->timestamp,
-                $record->totalTimeInSeconds * 1000
-            ];
-        })->toArray();
+                return [
+                    $createdAt->timestamp,
+                    $record->totalTimeInSeconds * 1000,
+                ];
+            })->toArray();
 
         return $performanceRecords;
     }
