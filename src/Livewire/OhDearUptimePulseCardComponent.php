@@ -11,6 +11,7 @@ use OhDear\OhDearPulse\Livewire\Concerns\RemembersApiCalls;
 use OhDear\OhDearPulse\Livewire\Concerns\UsesOhDearApi;
 use OhDear\OhDearPulse\OhDearPulse;
 use OhDear\PhpSdk\Resources\Check;
+use OhDear\PhpSdk\Resources\PerformanceRecord;
 use OhDear\PhpSdk\Resources\Site;
 
 #[Lazy]
@@ -35,56 +36,23 @@ class OhDearUptimePulseCardComponent extends Card
 
     public function getData()
     {
-        return collect([
-            [
-                now()->timestamp * 1000,
-                70,
-            ],
-            [
-                now()->addMinutes(-1)->timestamp * 1000,
-                80,
-            ],
-            [
-                now()->addMinutes(-2)->timestamp * 1000,
-                95,
-            ],
-            [
-                now()->addMinutes(-3)->timestamp * 1000,
-                75,
-            ],
-            [
-                now()->addMinutes(-4)->timestamp * 1000,
-                75,
-            ],
-            [
-                now()->addMinutes(-5)->timestamp * 1000,
-                80,
-            ],
-            [
-                now()->addMinutes(-6)->timestamp * 1000,
-                90,
-            ],
-            [
-                now()->addMinutes(-7)->timestamp * 1000,
-                85,
-            ],
-            [
-                now()->addMinutes(-8)->timestamp * 1000,
-                80,
-            ],
-            [
-                now()->addMinutes(-9)->timestamp * 1000,
-                60,
-            ],
-            [
-                now()->addMinutes(-10)->timestamp * 1000,
-                75,
-            ],
-            [
-                now()->addMinutes(-11)->timestamp * 1000,
-                80,
-            ],
-        ])->toArray();
+        $performanceRecords = $this->ohDear()->performanceRecords(
+            $this->siteId,
+            Carbon::now()->subMinutes(20),
+            Carbon::now(),
+        );
+
+        $performanceRecords = collect($performanceRecords)
+            ->map(function (PerformanceRecord $record) {
+            $createdAt = Carbon::createFromFormat("Y-m-d H:i:s", $record->createdAt);
+
+            return [
+                $createdAt->timestamp,
+                $record->totalTimeInSeconds * 1000
+            ];
+        })->toArray();
+
+        return $performanceRecords;
     }
 
     protected function getLabels(): array
