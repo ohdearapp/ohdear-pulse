@@ -60,7 +60,7 @@ class OhDearUptimePulseCardComponent extends Card
                     $createdAt->getTimestampMs(),
                     ceil($record->totalTimeInSeconds * 1000),
                 ];
-            })->toArray();
+            })->reverse()->values()->toArray();
 
         $this->performanceRecords = $performanceRecords;
     }

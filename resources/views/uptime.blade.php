@@ -149,7 +149,7 @@
         <div class="absolute flex justify-between w-full px-6 text-xs text-gray-400 bottom-8 dark:text-gray-500">
             <span>Now</span>
 
-            <span>{{\Carbon\Carbon::createFromTimestamp($this->performanceRecords[count($this->performanceRecords) -2][0]/1000)->diffInMinutes(now(), true)}} min ago</span>
+            <span>{{\Carbon\Carbon::createFromTimestamp($this->performanceRecords[count($this->performanceRecords) -1][0]/1000)->diffInMinutes(now(), true)}} min ago</span>
         </div>
     </div>
 </x-pulse::card>
