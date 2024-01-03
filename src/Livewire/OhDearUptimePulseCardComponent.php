@@ -5,6 +5,7 @@ namespace OhDear\OhDearPulse\Livewire;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Collection;
 use Laravel\Pulse\Livewire\Card;
 use Livewire\Attributes\Lazy;
 use OhDear\OhDearPulse\Livewire\Concerns\RemembersApiCalls;
@@ -22,6 +23,12 @@ class OhDearUptimePulseCardComponent extends Card
 
     public int $siteId;
 
+    public Collection $sites;
+
+    public array $performanceRecords;
+
+    public int $maxPerformanceRecord = 0;
+
     protected function css()
     {
         return __DIR__.'/../../dist/output.css';
@@ -32,9 +39,12 @@ class OhDearUptimePulseCardComponent extends Card
         $this->sites = collect();
 
         $this->siteId = $siteId ?? config('services.oh_dear.pulse.site_id');
+
+        $this->setPerformanceRecords();
+        $this->setMaxPerformanceRecord();
     }
 
-    public function getData()
+    public function setPerformanceRecords()
     {
         $performanceRecords = $this->ohDear()->performanceRecords(
             $this->siteId,
@@ -47,17 +57,25 @@ class OhDearUptimePulseCardComponent extends Card
                 $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $record->createdAt);
 
                 return [
-                    $createdAt->timestamp,
-                    $record->totalTimeInSeconds * 1000,
+                    $createdAt->getTimestampMs(),
+                    ceil($record->totalTimeInSeconds * 1000),
                 ];
             })->toArray();
 
-        return $performanceRecords;
+        $this->performanceRecords = $performanceRecords;
+    }
+
+    public function setMaxPerformanceRecord()
+    {
+
+        $this->maxPerformanceRecord = (int) ceil(collect($this->performanceRecords)
+            ->max(fn (array $dataPoint) => $dataPoint[1])) + 10;
+
     }
 
     protected function getLabels(): array
     {
-        return collect($this->getData())
+        return collect($this->performanceRecords)
             ->map(function (array $dataPoint) {
                 return Carbon::createFromTimestamp($dataPoint[0] / 1000)
                     ->format('Y-m-d H:i');

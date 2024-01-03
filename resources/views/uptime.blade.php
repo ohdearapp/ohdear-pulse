@@ -34,7 +34,7 @@
             <div class="relative flex items-center justify-center w-2 h-2 rounded-full bg-emerald-500 dark:border-t dark:bg-gradient-to-t dark:from-emerald-400 dark:border-emerald-200 dark:to-emerald-300">
 
             </div>
-            <span>{{$this->getData()[0][1]}}ms</span>
+            <span>{{$this->performanceRecords[0][1]}}ms</span>
         </div>
         <div
             wire:ignore
@@ -51,7 +51,7 @@
                                     {
                                         label: 'Response time',
                                         borderColor: '#55B685',
-                                        data: @js($this->getData()),
+                                        data: @js($this->performanceRecords),
                                         borderCapStyle: 'round',
                                         pointHitRadius: 20,
                                         pointRadius: 0,
@@ -95,7 +95,7 @@
                                     y: {
                                         display: false,
                                         min: 0,
-                                        max: 100,
+                                        max: @js($this->maxPerformanceRecord),
                                     },
                                 },
                                 plugins: {
@@ -149,7 +149,7 @@
         <div class="absolute flex justify-between w-full px-6 text-xs text-gray-400 bottom-8 dark:text-gray-500">
             <span>Now</span>
 
-            <span>{{\Carbon\Carbon::createFromTimestamp($this->getData()[count($this->getData()) -2][0]/1000)->diffInMinutes(now(), true)}} min ago</span>
+            <span>{{\Carbon\Carbon::createFromTimestamp($this->performanceRecords[count($this->performanceRecords) -2][0]/1000)->diffInMinutes(now(), true)}} min ago</span>
         </div>
     </div>
 </x-pulse::card>
