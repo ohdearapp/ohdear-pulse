@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Laravel\Pulse\Livewire\Card;
 use Livewire\Attributes\Lazy;
 use OhDear\OhDearPulse\Livewire\Concerns\RemembersApiCalls;
@@ -58,16 +59,15 @@ class OhDearUptimePulseCardComponent extends Card
 
                 return [
                     $createdAt->getTimestampMs(),
-                    ceil($record->totalTimeInSeconds * 1000),
+                    number_format($record->totalTimeInSeconds * 1000, 2),
                 ];
             })->reverse()->values()->toArray();
 
         $this->performanceRecords = $performanceRecords;
     }
 
-    public function setMaxPerformanceRecord()
+    public function setMaxPerformanceRecord(): void
     {
-
         $this->maxPerformanceRecord = (int) ceil(collect($this->performanceRecords)
             ->max(fn (array $dataPoint) => $dataPoint[1])) + 10;
 
@@ -76,9 +76,12 @@ class OhDearUptimePulseCardComponent extends Card
     protected function getLabels(): array
     {
         return collect($this->performanceRecords)
-            ->map(function (array $dataPoint) {
-                return Carbon::createFromTimestamp($dataPoint[0] / 1000)
-                    ->format('Y-m-d H:i');
+            ->map(function (array $dataPoint, int $index) {
+                if ($index === 0) {
+                    return 'Now';
+                }
+
+                return $index .' ' . Str::plural('minute', $index) . ' ago';
             })
             ->toArray();
     }
