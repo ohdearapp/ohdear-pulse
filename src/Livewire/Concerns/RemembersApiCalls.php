@@ -23,7 +23,6 @@ trait RemembersApiCalls
                 } catch (NotFoundException $exception) {
                     throw SiteIdNotCorrect::make($exception);
                 }
-
             },
         );
     }
