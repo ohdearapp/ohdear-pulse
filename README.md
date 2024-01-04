@@ -70,6 +70,8 @@ Next, add the cards to the `resources/views/vendor/pulse/dashboard.blade.php` fi
 </x-pulse>
 ```
 
+All these cards accept an optional `site-id` attribute. If you don't provide it, the site ID from the `config/services.php` file will be used.
+
 ## Testing
 
 ```bash
