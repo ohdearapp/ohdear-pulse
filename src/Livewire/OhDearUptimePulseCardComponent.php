@@ -129,10 +129,11 @@ class OhDearUptimePulseCardComponent extends Card
         };
     }
 
-    protected function getStatusColor()
+    protected function getStatusColor(): string
     {
         return match ($this->getStatus($this->getSite())) {
             'Online' => 'dark:bg-gradient-to-t dark:from-emerald-500 dark:to-emerald-400 bg-emerald-100 text-emerald-800 dark:border-emerald-300 dark:text-gray-900 dark:border-t',
+            'Down' => 'dark:bg-gradient-to-t dark:from-rose-500 dark:to-rose-400 bg-rose-100 text-rose-800 dark:border-rose-300 dark:text-gray-900 dark:border-t',
             default => 'bg-gray-600',
         };
     }
