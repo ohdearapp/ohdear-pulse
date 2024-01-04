@@ -81,7 +81,7 @@ class OhDearUptimePulseCardComponent extends Card
                     return 'Now';
                 }
 
-                return $index .' ' . Str::plural('minute', $index) . ' ago';
+                return $index.' '.Str::plural('minute', $index).' ago';
             })
             ->toArray();
     }
