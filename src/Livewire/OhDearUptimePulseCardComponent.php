@@ -41,16 +41,19 @@ class OhDearUptimePulseCardComponent extends Card
 
         $this->siteId = $siteId ?? config('services.oh_dear.pulse.site_id');
 
-        $this->setPerformanceRecords();
-        $this->setMaxPerformanceRecord();
+        $this->fetchPerformanceRecords();
     }
 
-    public function setPerformanceRecords()
+    public function fetchPerformanceRecords(): void
     {
-        $performanceRecords = $this->ohDear()->performanceRecords(
-            $this->siteId,
-            Carbon::now()->subMinutes(20),
-            Carbon::now(),
+        $performanceRecords = $this->rememberApiCall(
+            fn() => $this->ohDear()->performanceRecords(
+                $this->siteId,
+                Carbon::now()->subMinutes(20),
+                Carbon::now(),
+            ),
+            'performance-records:'.$this->siteId,
+            CarbonInterval::seconds(30),
         );
 
         $performanceRecords = collect($performanceRecords)
@@ -64,13 +67,9 @@ class OhDearUptimePulseCardComponent extends Card
             })->reverse()->values()->toArray();
 
         $this->performanceRecords = $performanceRecords;
-    }
 
-    public function setMaxPerformanceRecord(): void
-    {
         $this->maxPerformanceRecord = (int) ceil(collect($this->performanceRecords)
-            ->max(fn (array $dataPoint) => $dataPoint[1])) + 10;
-
+                ->max(fn (array $dataPoint) => $dataPoint[1])) + 10;
     }
 
     protected function getLabels(): array
