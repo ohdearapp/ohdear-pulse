@@ -47,7 +47,7 @@ class OhDearUptimePulseCardComponent extends Card
     public function fetchPerformanceRecords(): void
     {
         $performanceRecords = $this->rememberApiCall(
-            fn() => $this->ohDear()->performanceRecords(
+            fn () => $this->ohDear()->performanceRecords(
                 $this->siteId,
                 Carbon::now()->subMinutes(20),
                 Carbon::now(),
@@ -69,7 +69,7 @@ class OhDearUptimePulseCardComponent extends Card
         $this->performanceRecords = $performanceRecords;
 
         $this->maxPerformanceRecord = (int) ceil(collect($this->performanceRecords)
-                ->max(fn (array $dataPoint) => $dataPoint[1])) + 10;
+            ->max(fn (array $dataPoint) => $dataPoint[1])) + 10;
     }
 
     protected function getLabels(): array
