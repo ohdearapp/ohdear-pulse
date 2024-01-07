@@ -11,15 +11,15 @@ Currently, there are three cards available:
 
 - [Uptime and Performance](https://ohdear.app/docs/features/uptime-monitoring)
 
-<img src="https://github.com/ohdearapp/ohdear-pulse/blob/main/docs/uptime.png?raw=true" width=400 />
+<img src="https://github.com/ohdearapp/ohdear-pulse/blob/main/docs/uptime.jpg?raw=true" width=400 />
 
 - [Cron Job Monitoring](https://ohdear.app/docs/features/cron-job-monitoring)
 
-![screenshot](https://github.com/ohdearapp/ohdear-pulse/blob/main/docs/cron.png?raw=true)
+![screenshot](https://github.com/ohdearapp/ohdear-pulse/blob/main/docs/cron.jpg?raw=true)
 
 - [Broken links](https://ohdear.app/docs/features/broken-links-detection)
 
-![screenshot](https://github.com/ohdearapp/ohdear-pulse/blob/main/docs/broken-links.png?raw=true)
+![screenshot](https://github.com/ohdearapp/ohdear-pulse/blob/main/docs/broken-links.jpg?raw=true)
 
 ## Installation
 
@@ -41,6 +41,12 @@ In your `config/services.php` file, add the following lines:
 ```
 
 You can create an API token on the "API Tokens" page at Oh Dear. You'll find the site ID on the "Settings" page of a site on Oh Dear.
+
+You can execute this artisan command to verify if you set up the configuration correctly.
+
+```bash
+php artisan ohdear-pulse:verify
+```
 
 ## Usage
 

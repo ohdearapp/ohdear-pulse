@@ -3,6 +3,7 @@
 namespace OhDear\OhDearPulse;
 
 use Livewire\LivewireManager;
+use OhDear\OhDearPulse\Commands\VerifyCommand;
 use OhDear\OhDearPulse\Livewire\OhDearBrokenLinksCardComponent;
 use OhDear\OhDearPulse\Livewire\OhDearCronPulseCardComponent;
 use OhDear\OhDearPulse\Livewire\OhDearUptimePulseCardComponent;
@@ -16,7 +17,8 @@ class OhDearPulseServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('ohdear-pulse')
-            ->hasViews();
+            ->hasViews()
+            ->hasCommand(VerifyCommand::class);
     }
 
     public function packageBooted()
