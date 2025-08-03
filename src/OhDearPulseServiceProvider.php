@@ -7,7 +7,7 @@ use OhDear\OhDearPulse\Commands\VerifyCommand;
 use OhDear\OhDearPulse\Livewire\OhDearBrokenLinksCardComponent;
 use OhDear\OhDearPulse\Livewire\OhDearCronPulseCardComponent;
 use OhDear\OhDearPulse\Livewire\OhDearUptimePulseCardComponent;
-use OhDear\PhpSdk\OhDear;
+use OhDear\OhDearPulse\Support\OhDearApi\OhDear;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

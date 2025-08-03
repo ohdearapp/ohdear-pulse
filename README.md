@@ -35,7 +35,7 @@ In your `config/services.php` file, add the following lines:
 'oh_dear' => [
     'pulse' => [
         'api_key' => env('OH_DEAR_API_TOKEN'),
-        'site_id' => env('OH_DEAR_SITE_ID'),
+        'monitor_id' => env('OH_DEAR_MONITOR_ID'),
     ],
 ],
 ```

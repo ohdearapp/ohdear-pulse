@@ -3,7 +3,7 @@
 namespace OhDear\OhDearPulse\Livewire\Concerns;
 
 use OhDear\OhDearPulse\OhDearPulse;
-use OhDear\PhpSdk\OhDear;
+use OhDear\OhDearPulse\Support\OhDearApi\OhDear;
 
 trait UsesOhDearApi
 {
@@ -14,7 +14,7 @@ trait UsesOhDearApi
 
     public function isConfigured(): bool
     {
-        if (! $this->siteId) {
+        if (! $this->monitorId) {
             return false;
         }
 
