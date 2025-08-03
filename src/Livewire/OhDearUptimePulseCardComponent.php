@@ -13,8 +13,8 @@ use OhDear\OhDearPulse\Livewire\Concerns\RemembersApiCalls;
 use OhDear\OhDearPulse\Livewire\Concerns\UsesOhDearApi;
 use OhDear\OhDearPulse\OhDearPulse;
 use OhDear\OhDearPulse\Support\OhDearApi\Resources\Check;
-use OhDear\OhDearPulse\Support\OhDearApi\Resources\PerformanceRecord;
 use OhDear\OhDearPulse\Support\OhDearApi\Resources\Monitor;
+use OhDear\OhDearPulse\Support\OhDearApi\Resources\PerformanceRecord;
 
 #[Lazy]
 class OhDearUptimePulseCardComponent extends Card
