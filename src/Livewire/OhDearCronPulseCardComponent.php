@@ -14,16 +14,16 @@ class OhDearCronPulseCardComponent extends Card
     use RemembersApiCalls;
     use UsesOhDearApi;
 
-    public ?int $siteId;
+    public ?int $monitorId;
 
     protected function css()
     {
         return __DIR__.'/../../dist/output.css';
     }
 
-    public function mount(?int $siteId = null)
+    public function mount(?int $monitorId = null)
     {
-        $this->siteId = $siteId ?? config('services.oh_dear.pulse.site_id');
+        $this->monitorId = $monitorId ?? config('services.oh_dear.pulse.monitor_id');
     }
 
     public function render(): Renderable
@@ -37,7 +37,7 @@ class OhDearCronPulseCardComponent extends Card
     }
 
     /**
-     * @return array<\OhDear\PhpSdk\Resources\CronCheck>|null
+     * @return array<\OhDear\OhDearPulse\Support\OhDearApi\Resources\CronCheck>|null
      */
     public function getCronChecks(): ?array
     {
@@ -46,8 +46,8 @@ class OhDearCronPulseCardComponent extends Card
         }
 
         return $this->rememberApiCall(
-            fn () => $this->ohDear()?->cronChecks($this->siteId),
-            'site:'.$this->siteId,
+            fn () => $this->ohDear()?->cronChecks($this->monitorId),
+            'monitor:'.$this->monitorId,
         );
     }
 }

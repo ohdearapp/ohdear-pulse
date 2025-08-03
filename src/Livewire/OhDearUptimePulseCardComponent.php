@@ -12,9 +12,9 @@ use Livewire\Attributes\Lazy;
 use OhDear\OhDearPulse\Livewire\Concerns\RemembersApiCalls;
 use OhDear\OhDearPulse\Livewire\Concerns\UsesOhDearApi;
 use OhDear\OhDearPulse\OhDearPulse;
-use OhDear\PhpSdk\Resources\Check;
-use OhDear\PhpSdk\Resources\PerformanceRecord;
-use OhDear\PhpSdk\Resources\Site;
+use OhDear\OhDearPulse\Support\OhDearApi\Resources\Check;
+use OhDear\OhDearPulse\Support\OhDearApi\Resources\Monitor;
+use OhDear\OhDearPulse\Support\OhDearApi\Resources\PerformanceRecord;
 
 #[Lazy]
 class OhDearUptimePulseCardComponent extends Card
@@ -22,9 +22,9 @@ class OhDearUptimePulseCardComponent extends Card
     use RemembersApiCalls;
     use UsesOhDearApi;
 
-    public int $siteId;
+    public int $monitorId;
 
-    public Collection $sites;
+    public Collection $monitors;
 
     public array $performanceRecords;
 
@@ -35,11 +35,11 @@ class OhDearUptimePulseCardComponent extends Card
         return __DIR__.'/../../dist/output.css';
     }
 
-    public function mount(?int $siteId = null)
+    public function mount(?int $monitorId = null)
     {
-        $this->sites = collect();
+        $this->monitors = collect();
 
-        $this->siteId = $siteId ?? config('services.oh_dear.pulse.site_id');
+        $this->monitorId = $monitorId ?? config('services.oh_dear.pulse.monitor_id');
 
         $this->fetchPerformanceRecords();
     }
@@ -48,11 +48,11 @@ class OhDearUptimePulseCardComponent extends Card
     {
         $performanceRecords = $this->rememberApiCall(
             fn () => $this->ohDear()->performanceRecords(
-                $this->siteId,
+                $this->monitorId,
                 Carbon::now()->subMinutes(20),
                 Carbon::now(),
             ),
-            'performance-records:'.$this->siteId,
+            'performance-records:'.$this->monitorId,
             CarbonInterval::seconds(30),
         );
 
@@ -98,22 +98,22 @@ class OhDearUptimePulseCardComponent extends Card
         ]);
     }
 
-    public function getSite(): ?Site
+    public function getSite(): ?Monitor
     {
         if (! OhDearPulse::isConfigured()) {
             return null;
         }
 
         $siteAttributes = $this->rememberApiCall(
-            fn () => $this->ohDear()?->site($this->siteId)?->attributes,
-            'site:'.$this->siteId,
+            fn () => $this->ohDear()?->site($this->monitorId)?->attributes,
+            'monitor:'.$this->monitorId,
             CarbonInterval::seconds(10),
         );
 
-        return new Site($siteAttributes);
+        return new Monitor($siteAttributes);
     }
 
-    protected function getStatus(?Site $site): ?string
+    protected function getStatus(?Monitor $site): ?string
     {
         if (! $site) {
             return null;
@@ -138,7 +138,7 @@ class OhDearUptimePulseCardComponent extends Card
         };
     }
 
-    protected function getPerformance(?Site $site): ?string
+    protected function getPerformance(?Monitor $site): ?string
     {
         if (! $site) {
             return null;
@@ -151,7 +151,7 @@ class OhDearUptimePulseCardComponent extends Card
         return $check->summary;
     }
 
-    protected function getCheck(Site $site, string $type): ?Check
+    protected function getCheck(Monitor $site, string $type): ?Check
     {
         return collect($site->checks)
             ->first(fn (Check $check) => $check->type === $type);
