@@ -6,16 +6,16 @@ use DateTimeImmutable;
 use GuzzleHttp\Client;
 use OhDear\OhDearPulse\Support\OhDearApi\Actions\ManagesBrokenLinks;
 use OhDear\OhDearPulse\Support\OhDearApi\Actions\ManagesCronChecks;
-use OhDear\OhDearPulse\Support\OhDearApi\Actions\ManagesPerformance;
 use OhDear\OhDearPulse\Support\OhDearApi\Actions\ManagesMonitors;
+use OhDear\OhDearPulse\Support\OhDearApi\Actions\ManagesPerformance;
 
 class OhDear
 {
     use MakesHttpRequests;
     use ManagesBrokenLinks;
     use ManagesCronChecks;
-    use ManagesPerformance;
     use ManagesMonitors;
+    use ManagesPerformance;
 
     public string $apiToken;
 
