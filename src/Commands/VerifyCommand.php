@@ -51,8 +51,8 @@ class VerifyCommand extends Command
 
     protected function verifySiteId(array $ohDearConfig): self
     {
-        if (empty($ohDearConfig['site_id'])) {
-            throw new Exception('No site id found. Make sure you added an site id to the `oh_dear.pulse.site_id` key of the `services` config file. You can found your site id on the settings page of a site on Oh Dear.');
+        if (empty($ohDearConfig['monitor_id'])) {
+            throw new Exception('No site id found. Make sure you added an site id to the `oh_dear.pulse.monitor_id` key of the `services` config file. You can found your site id on the settings page of a site on Oh Dear.');
         }
 
         $this->comment('Oh Dear site id found.');
@@ -64,7 +64,7 @@ class VerifyCommand extends Command
     {
         $this->comment('Trying to reach Oh Dear...');
 
-        $site = app('ohdear-pulse')->site($ohDearConfig['site_id']);
+        $site = app('ohdear-pulse')->site($ohDearConfig['monitor_id']);
 
         $this->comment("Successfully connected to Oh Dear. The configured site URL is: {$site->sortUrl}");
 

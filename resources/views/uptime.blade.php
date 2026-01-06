@@ -22,7 +22,7 @@
         </div>
 
         <div class="relative">
-            <a href="https://ohdear.app/sites/{{config('services.oh_dear.pulse.site_id')}}/check/uptime/report" target="_blank">
+            <a href="https://ohdear.app/monitors/{{config('services.oh_dear.pulse.monitor_id')}}/check/uptime/report" target="_blank">
                 <x-ohdear-pulse::logo-ohdear />
             </a>
         </div>

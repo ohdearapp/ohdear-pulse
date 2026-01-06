@@ -17,7 +17,7 @@
         </div>
 
         <div>
-            <a href="https://ohdear.app/sites/{{config('services.oh_dear.pulse.site_id')}}/check/scheduled-tasks/list" target="_blank" class="text-xs font-bold text-gray-700 uppercase transition-colors dark:text-gray-400 dark:hover:text-brand ">
+            <a href="https://ohdear.app/monitors/{{config('services.oh_dear.pulse.monitor_id')}}/check/scheduled-tasks/list" target="_blank" class="text-xs font-bold text-gray-700 uppercase transition-colors dark:text-gray-400 dark:hover:text-brand ">
                 <x-ohdear-pulse::logo-ohdear class="inline-block w-10" />
             </a>
         </div>
@@ -43,7 +43,7 @@
                         <tr wire:key="cronCheck.{{ $cronCheck->id }}">
                             <x-pulse::td class="px-4 dark:bg-gray-800">
                                 <code class="block text-xs text-gray-900 truncate dark:text-gray-100" title="{{ $cronCheck->name }}">
-                                    <a  href="https://ohdear.app/sites/{{$siteId}}/check/scheduled-tasks/{{$cronCheck->id}}" target="_blank">
+                                    <a  href="https://ohdear.app/monitors/{{$monitorId}}/check/scheduled-tasks/{{$cronCheck->id}}" target="_blank">
                                         {{ $cronCheck->name }}
                                     </a>
                                 </code>

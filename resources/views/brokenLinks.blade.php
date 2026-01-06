@@ -14,7 +14,7 @@
         </div>
 
         <div>
-            <a href="https://ohdear.app/sites/{{config('services.oh_dear.pulse.site_id')}}/check/broken-links/report"
+            <a href="https://ohdear.app/monitors/{{config('services.oh_dear.pulse.monitor_id')}}/check/broken-links/report"
                target="_blank"
                class="text-xs font-bold text-gray-700 uppercase transition-colors dark:text-gray-400 hover:text-brand ">
                 <x-ohdear-pulse::logo-ohdear class="inline-block w-10"/>

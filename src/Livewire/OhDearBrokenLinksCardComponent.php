@@ -15,11 +15,11 @@ class OhDearBrokenLinksCardComponent extends Card
     use RemembersApiCalls;
     use UsesOhDearApi;
 
-    public ?int $siteId = null;
+    public ?int $monitorId = null;
 
-    public function mount(?int $siteId = null)
+    public function mount(?int $monitorId = null)
     {
-        $this->siteId = $siteId ?? config('services.oh_dear.pulse.site_id');
+        $this->monitorId = $monitorId ?? config('services.oh_dear.pulse.monitor_id');
     }
 
     public function render(): Renderable
@@ -33,7 +33,7 @@ class OhDearBrokenLinksCardComponent extends Card
     }
 
     /**
-     * @return array<\OhDear\PhpSdk\Resources\BrokenLink>|null
+     * @return array<\OhDear\OhDearPulse\Support\OhDearApi\Resources\BrokenLink>|null
      */
     public function getBrokenLinks(): ?array
     {
@@ -42,8 +42,8 @@ class OhDearBrokenLinksCardComponent extends Card
         }
 
         return $this->rememberApiCall(
-            fn () => $this->ohDear()?->brokenLinks($this->siteId),
-            'site:'.$this->siteId,
+            fn () => $this->ohDear()?->brokenLinks($this->monitorId),
+            'monitor:'.$this->monitorId,
             CarbonInterval::minutes(15)
         );
     }
