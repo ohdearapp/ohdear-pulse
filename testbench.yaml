@@ -1,0 +1,12 @@
+providers:
+  - Laravel\Pulse\PulseServiceProvider
+  - Livewire\LivewireServiceProvider
+  - OhDear\OhDearPulse\OhDearPulseServiceProvider
+  - Workbench\App\Providers\WorkbenchServiceProvider
+
+workbench:
+  start: /pulse
+  install: true
+  discovers:
+    config: true
+    views: true

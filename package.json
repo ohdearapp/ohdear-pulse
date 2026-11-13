@@ -1,9 +1,10 @@
 {
     "scripts": {
-        "dev": "npx tailwindcss -i ./resources/css/style.css -o ./dist/output.css --watch",
-        "build": "npx tailwindcss -i ./resources/css/style.css -o ./dist/output.css"
+        "dev": "tailwindcss -i ./resources/css/style.css -o ./dist/output.css --watch",
+        "build": "tailwindcss -i ./resources/css/style.css -o ./dist/output.css --minify"
     },
     "devDependencies": {
-        "tailwindcss": "^3.3.6"
+        "@tailwindcss/cli": "^4.3.5",
+        "tailwindcss": "^4.3.5"
     }
 }

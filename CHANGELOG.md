@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.0.0 - Unreleased
+
+- Require PHP 8.3+, Laravel 13, Pulse 1.10+, and the official Oh Dear PHP SDK 4.7+.
+- Replace sites and retired performance records with monitors and HTTP uptime metrics, fixing #21.
+- Rename configuration and card overrides from site IDs to monitor IDs. See [UPGRADING](UPGRADING.md).
+- Render a chronological SVG response-time chart without Chart.js, ignoring unmeasured API buckets.
+- Fetch all pages of scheduled tasks and broken links, isolate cached data by token, and recover from API failures within each card.
+- Refresh the cards for light and dark Pulse dashboards with scoped Tailwind 4 styles, accessible links, and keyboard-scrollable tables.
+- Add Pest regression coverage, PHPStan, a PHP 8.3–8.5 CI matrix, asset checks, and a real-data Workbench dashboard.
+- Build on Freek's monitor migration in #17 and Laravel Shift's Laravel 13 work in #23. Fold in Dependabot's action updates from #19, #25, and #26. Keep the maintained SDK rather than the copied fork in #17.
+
 All notable changes to `ohdear-pulse` will be documented in this file.
 
 ## 1.1.1 - 2025-02-17

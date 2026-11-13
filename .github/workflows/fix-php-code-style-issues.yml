@@ -1,27 +1,18 @@
-name: Fix PHP code style issues
+name: Check PHP code style
 
-on:
-  push:
-    paths:
-      - '**.php'
+on: [push, pull_request]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  php-code-styling:
+  style:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - uses: shivammathur/setup-php@v2
         with:
-          ref: ${{ github.head_ref }}
-
-      - name: Fix PHP code style issues
-        uses: aglipanci/laravel-pint-action@2.6
-
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v6
-        with:
-          commit_message: Fix styling
+          php-version: '8.5'
+          coverage: none
+      - run: composer update --prefer-dist --no-interaction
+      - run: vendor/bin/pint --test

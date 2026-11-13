@@ -2,72 +2,49 @@
 
 namespace OhDear\OhDearPulse\Commands;
 
-use Exception;
 use Illuminate\Console\Command;
-use OhDear\PhpSdk\OhDear;
+use OhDear\OhDearPulse\OhDearPulse;
+use OhDear\PhpSdk\Exceptions\OhDearException;
+use Saloon\Exceptions\Request\FatalRequestException;
 
 class VerifyCommand extends Command
 {
     public $signature = 'ohdear-pulse:verify';
 
-    public $description = 'Verify that the Oh Dear connection is configured correctly';
+    public $description = 'Verify the Oh Dear API token and monitor ID';
 
-    public function handle()
+    public function handle(): int
     {
-        $ohDearConfig = config('services.oh_dear.pulse');
+        if (! OhDearPulse::isConfigured()) {
+            $this->error('Set services.oh_dear.pulse.api_key to your Oh Dear API token.');
 
-        $this->info('Verifying if Oh Dear is configured correctly...');
-
-        $this
-            ->verifySdkInstalled()
-            ->verifyApiToken($ohDearConfig)
-            ->verifySiteId($ohDearConfig)
-            ->verifyConnection($ohDearConfig);
-
-        $this->info('✅ Oh Dear is configured correctly!');
-    }
-
-    public function verifySdkInstalled(): self
-    {
-        if (! class_exists(OhDear::class)) {
-            throw new Exception('You must install the Oh Dear SDK in order to sync your schedule with Oh Dear. Run `composer require ohdearapp/ohdear-php-sdk`.');
+            return self::FAILURE;
         }
 
-        $this->comment('The Oh Dear SDK is installed.');
+        $monitorId = config('services.oh_dear.pulse.monitor_id');
 
-        return $this;
-    }
+        if (! filter_var($monitorId, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]])) {
+            $this->error('Set services.oh_dear.pulse.monitor_id to a valid Oh Dear monitor ID.');
 
-    protected function verifyApiToken(array $ohDearConfig): self
-    {
-        if (empty($ohDearConfig['api_key'])) {
-            throw new Exception('No API key found. Make sure you added an API token to the `services.oh_dear.pulse.api_key` key of the `services` config file. You can generate a new token here: https://ohdear.app/user/api-tokens');
+            return self::FAILURE;
         }
 
-        $this->comment('Oh Dear API token found.');
+        $this->comment('Connecting to Oh Dear...');
 
-        return $this;
-    }
+        try {
+            $monitor = app('ohdear-pulse')->monitor((int) $monitorId);
+        } catch (OhDearException $exception) {
+            $this->error("Oh Dear returned HTTP {$exception->response->status()}. Check your token and monitor access.");
 
-    protected function verifySiteId(array $ohDearConfig): self
-    {
-        if (empty($ohDearConfig['site_id'])) {
-            throw new Exception('No site id found. Make sure you added an site id to the `oh_dear.pulse.site_id` key of the `services` config file. You can found your site id on the settings page of a site on Oh Dear.');
+            return self::FAILURE;
+        } catch (FatalRequestException $exception) {
+            $this->error('Could not connect to Oh Dear. Check your network connection and try again.');
+
+            return self::FAILURE;
         }
 
-        $this->comment('Oh Dear site id found.');
+        $this->info("Connected to Oh Dear. Monitor {$monitor->id}: {$monitor->sortUrl}");
 
-        return $this;
-    }
-
-    protected function verifyConnection(array $ohDearConfig): self
-    {
-        $this->comment('Trying to reach Oh Dear...');
-
-        $site = app('ohdear-pulse')->site($ohDearConfig['site_id']);
-
-        $this->comment("Successfully connected to Oh Dear. The configured site URL is: {$site->sortUrl}");
-
-        return $this;
+        return self::SUCCESS;
     }
 }
