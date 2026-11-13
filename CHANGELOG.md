@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.0 - Unreleased
+## 2.0.0 - 2026-11-13
 
 - Require PHP 8.3+, Laravel 13, Pulse 1.10+, and the official Oh Dear PHP SDK 4.7+.
 - Replace sites and retired performance records with monitors and HTTP uptime metrics, fixing #21.
