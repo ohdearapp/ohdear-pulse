@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1 - 2026-11-13
+
+- Upgrade the test suite to Pest 5 and PHPUnit 13.
+- Remove the redundant direct architecture plugin dependency and the unused Laravel plugin.
+- Run CI on PHP 8.4 and 8.5, including lowest dependencies on PHP 8.4. The package's PHP 8.3 runtime support is unchanged.
+
 ## 2.0.0 - 2026-11-13
 
 - Require PHP 8.3+, Laravel 13, Pulse 1.10+, and the official Oh Dear PHP SDK 4.7+.

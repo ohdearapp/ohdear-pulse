@@ -83,6 +83,8 @@ Uptime data is cached for 30 seconds, scheduled tasks for one minute, and broken
 
 ## Testing
 
+Running the test suite requires PHP 8.4 or newer for Pest 5. The package's runtime requirement remains PHP 8.3 or newer.
+
 ```bash
 composer test
 composer analyse

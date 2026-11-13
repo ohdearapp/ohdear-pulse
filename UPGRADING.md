@@ -2,7 +2,7 @@
 
 Version 2 uses Oh Dear's monitor API. The old sites performance endpoint is no longer available. Upgrade the package and configuration together.
 
-1. Upgrade your application to PHP 8.3 or newer and Laravel 13. Upgrade Laravel Pulse to 1.10 or newer. Applications on Laravel 10, 11, or 12 must upgrade Laravel first. PHP 8.3, 8.4, and 8.5 are covered by this package's CI.
+1. Upgrade your application to PHP 8.3 or newer and Laravel 13. Upgrade Laravel Pulse to 1.10 or newer. Applications on Laravel 10, 11, or 12 must upgrade Laravel first. Contributors running this package's Pest 5 test suite need PHP 8.4 or newer; CI tests PHP 8.4 and 8.5.
 
 2. Update the package and SDK, allowing Composer to update related dependencies:
 
