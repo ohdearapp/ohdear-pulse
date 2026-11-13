@@ -1,17 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer theme, utilities;
+@import "tailwindcss/theme.css" layer(theme) prefix(od);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(od) source("../views");
 
-@layer base {
-    .bg-grid-base {
-        mask-position: bottom left;
-        background-repeat: repeat;
-    }
-
-    .bg-grid {
-        @apply bg-grid-base;
-
-        -webkit-mask-image: url("data:image/svg;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAYCAYAAACSuF9OAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAJKADAAQAAAABAAAAGAAAAABO37Z7AAAATElEQVRIDe3XsQ0AIAwDwYT9d06ABb5DQfq0bqzDDRGDrvatQX1uFQvRiyikEAlQ7oYUIgHK3ZBCJEC5G1KIBCh3Q98J5fl6UOuHeTVzhwkl8Nz3qwAAAABJRU5ErkJggg==");
-        mask-image: url("data:image/svg;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAYCAYAAACSuF9OAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAJKADAAQAAAABAAAAGAAAAABO37Z7AAAATElEQVRIDe3XsQ0AIAwDwYT9d06ABb5DQfq0bqzDDRGDrvatQX1uFQvRiyikEAlQ7oYUIgHK3ZBCJEC5G1KIBCh3Q98J5fl6UOuHeTVzhwkl8Nz3qwAAAABJRU5ErkJggg==");
-    }
-}
+@custom-variant dark (&:where(.dark, .dark *));

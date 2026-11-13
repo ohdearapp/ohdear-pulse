@@ -1,83 +1,51 @@
-@php
-    use Illuminate\Support\Str;
-@endphp
+<x-pulse::card :cols="$cols" :rows="$rows" :class="$class . ' ohdear-pulse od:min-w-0'" wire:poll.60s>
+    <x-ohdear-pulse::heading title="Scheduled tasks" :monitor-id="$monitorId" report="scheduled-tasks/list">
+        <x-ohdear-pulse::logo-cron />
+    </x-ohdear-pulse::heading>
 
-<x-pulse::card id="ohdear" :cols="$cols" :rows="$rows" :class="$class">
-    <div class="flex items-center justify-between space-x-2">
-        <div class="flex items-center space-x-2">
-            <x-ohdear-pulse::logo>
-                <x-ohdear-pulse::logo-cron />
-            </x-ohdear-pulse::logo>
-
-            <h2
-                class="text-base font-bold text-gray-600 truncate dark:text-gray-300"
-                title="Broken Links">
-                Cron
-            </h2>
-        </div>
-
-        <div>
-            <a href="https://ohdear.app/sites/{{config('services.oh_dear.pulse.site_id')}}/check/scheduled-tasks/list" target="_blank" class="text-xs font-bold text-gray-700 uppercase transition-colors dark:text-gray-400 dark:hover:text-brand ">
-                <x-ohdear-pulse::logo-ohdear class="inline-block w-10" />
-            </a>
-        </div>
-    </div>
-
-    <div class="flex flex-col gap-6 mt-4">
-        <div>
-            @if(! $isConfigured)
-                This card will display your cron checks. Learn how to configure it <a href="https://ohdear.app/docs/cron-checks" target="_blank" class="underline">in our docs</a>.
-            @else
-                <x-pulse::table class="table-fixed">
-                    <x-pulse::thead>
-                        <tr>
-                            <x-pulse::th class="px-4 w-[40%]">Task</x-pulse::th>
-                            <x-pulse::th class="w-[25%]">Last executed at</x-pulse::th>
-                            <x-pulse::th class="w-[25%]">Cron expression</x-pulse::th>
-                            <x-pulse::th class="px-4 w-[10%] text-right">Result</x-pulse::th>
-                        </tr>
-                    </x-pulse::thead>
-                    <tbody>
-                    @foreach ($cronChecks as $cronCheck)
-                        <tr class="h-2 first:h-0"></tr>
-                        <tr wire:key="cronCheck.{{ $cronCheck->id }}">
-                            <x-pulse::td class="px-4 dark:bg-gray-800">
-                                <code class="block text-xs text-gray-900 truncate dark:text-gray-100" title="{{ $cronCheck->name }}">
-                                    <a  href="https://ohdear.app/sites/{{$siteId}}/check/scheduled-tasks/{{$cronCheck->id}}" target="_blank">
-                                        {{ $cronCheck->name }}
-                                    </a>
-                                </code>
-                            </x-pulse::td>
-                            <x-pulse::td class="dark:bg-gray-800">
-                                <div class="flex flex-col text-gray-700 dark:text-gray-300">
-                                    <div>
-                                        {{ $cronCheck->humanReadableLatestPingAt }}
-                                    </div>
-                                    <div class="text-xs text-gray-600 dark:text-gray-400">
-                                        {{ $cronCheck->latestPingAt }}
-                                    </div>
-                                </div>
-                            </x-pulse::td>
-                            <x-pulse::td class="text-gray-700 dark:text-gray-300 dark:bg-gray-800">
-                                <div class="flex flex-col text-gray-700 dark:text-gray-300">
-                                    <div>
-                                        {{ $cronCheck->humanReadableCronExpression }}
-                                    </div>
-                                    <div class="text-xs text-gray-600 dark:text-gray-400">
-                                        {{ $cronCheck->cronExpression }}
-                                    </div>
-                                </div>
-                            </x-pulse::td>
-                            <x-pulse::td class="px-4 text-right text-gray-700 dark:text-gray-300 dark:bg-gray-800">
-                                <x-ohdear-pulse::pill :class="$class ?? ''" :color="$cronCheck->latestResultLabelColor">{{ $cronCheck->latestResultLabel }}</x-ohdear-pulse::pill>
-                            </x-pulse::td>
+    @if(! $isConfigured)
+        <x-ohdear-pulse::message title="Connect your monitor">
+            Set your API token and monitor ID in <code>services.oh_dear.pulse</code> to see scheduled tasks.
+        </x-ohdear-pulse::message>
+    @elseif($apiError)
+        <x-ohdear-pulse::message title="Unable to load scheduled tasks" role="status">{{ $apiError }}</x-ohdear-pulse::message>
+    @elseif(count($cronChecks) === 0)
+        <x-ohdear-pulse::message title="No scheduled tasks">
+            Add cron checks to this monitor in Oh Dear to track when your tasks run.
+        </x-ohdear-pulse::message>
+    @else
+        <div class="od:mt-4 od:max-h-80 od:overflow-auto" tabindex="0" role="region" aria-label="Scheduled tasks, scroll for more">
+            <table class="od:w-full od:min-w-[36rem] od:table-fixed od:text-left od:text-sm">
+                <thead class="od:text-xs od:text-gray-500 od:dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="od:w-2/5 od:pb-3 od:font-medium">Task / schedule</th>
+                        <th scope="col" class="od:w-2/5 od:pb-3 od:font-medium">Last ping</th>
+                        <th scope="col" class="od:pb-3 od:text-right od:font-medium">Result</th>
+                    </tr>
+                </thead>
+                <tbody class="od:divide-y od:divide-gray-100 od:dark:divide-gray-800">
+                    @foreach($cronChecks as $cronCheck)
+                        <tr wire:key="cron-{{ $monitorId }}-{{ $cronCheck->id }}">
+                            <td class="od:py-2 od:pr-4 od:align-top">
+                                <x-ohdear-pulse::link href="https://ohdear.app/monitors/{{ $monitorId }}/check/scheduled-tasks/{{ $cronCheck->id }}" class="od:max-w-full od:font-mono od:text-xs" :title="$cronCheck->name">
+                                    <span class="od:truncate">{{ $cronCheck->name }}</span>
+                                </x-ohdear-pulse::link>
+                                <p class="od:text-xs od:text-gray-500 od:dark:text-gray-400" title="{{ $cronCheck->cronExpression }}">{{ $cronCheck->humanReadableCronExpression ?: ($cronCheck->frequencyInMinutes . ' minute interval') }}</p>
+                            </td>
+                            <td class="od:py-3 od:pr-4 od:align-top od:tabular-nums">
+                                <p>{{ $cronCheck->humanReadableLatestPingAt ?: 'Never received' }}</p>
+                                @if($cronCheck->latestPingAt)
+                                    <p class="od:mt-1 od:text-xs od:text-gray-500 od:dark:text-gray-400">{{ $cronCheck->latestPingAt }} UTC</p>
+                                @endif
+                            </td>
+                            <td class="od:py-3 od:text-right od:align-top">
+                                <x-ohdear-pulse::pill :color="$cronCheck->activeSnooze ? 'gray' : $cronCheck->latestResultLabelColor">{{ $cronCheck->activeSnooze ? 'Snoozed' : ($cronCheck->latestResultLabel ?: 'Pending') }}</x-ohdear-pulse::pill>
+                            </td>
                         </tr>
                     @endforeach
-                    </tbody>
-                </x-pulse::table>
-            @endif
-
+                </tbody>
+            </table>
         </div>
-    </div>
-
+        <p class="od:mt-2 od:text-xs od:text-gray-500 od:dark:text-gray-400">{{ count($cronChecks) }} scheduled {{ count($cronChecks) === 1 ? 'task' : 'tasks' }} · Scroll for more</p>
+    @endif
 </x-pulse::card>

@@ -21,7 +21,7 @@ class OhDearPulseServiceProvider extends PackageServiceProvider
             ->hasCommand(VerifyCommand::class);
     }
 
-    public function packageBooted()
+    public function packageBooted(): void
     {
         $this->callAfterResolving('livewire', function (LivewireManager $livewire) {
             $livewire->component('ohdear.pulse.uptime', OhDearUptimePulseCardComponent::class);
@@ -30,11 +30,7 @@ class OhDearPulseServiceProvider extends PackageServiceProvider
         });
 
         $this->app->bind('ohdear-pulse', function () {
-            if (! OhDearPulse::isConfigured()) {
-                return null;
-            }
-
-            return new OhDear(config('services.oh_dear.pulse.api_key'));
+            return new OhDear(config('services.oh_dear.pulse.api_key', ''));
         });
     }
 }

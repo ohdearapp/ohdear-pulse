@@ -1,75 +1,49 @@
-@php
-    use Illuminate\Support\Str;
-@endphp
+<x-pulse::card :cols="$cols" :rows="$rows" :class="$class . ' ohdear-pulse od:min-w-0'" wire:poll.60s>
+    <x-ohdear-pulse::heading title="Broken links" :monitor-id="$monitorId" report="broken-links/report">
+        <x-ohdear-pulse::logo-broken-link />
+    </x-ohdear-pulse::heading>
 
-<x-pulse::card id="ohdear" :cols="$cols" :rows="$rows" :class="$class">
-    <div class="flex items-center justify-between space-x-2">
-        <div class="flex items-center space-x-2">
-            <x-ohdear-pulse::logo>
-                <x-ohdear-pulse::logo-broken-link/>
-            </x-ohdear-pulse::logo>
-
-            <h2 class="text-base font-bold text-gray-600 truncate dark:text-gray-300" title="Broken Links">Broken
-                Links</h2>
+    @if(! $isConfigured)
+        <x-ohdear-pulse::message title="Connect your monitor">
+            Set your API token and monitor ID in <code>services.oh_dear.pulse</code> to see broken links.
+        </x-ohdear-pulse::message>
+    @elseif($apiError)
+        <x-ohdear-pulse::message title="Unable to load broken links" role="status">{{ $apiError }}</x-ohdear-pulse::message>
+    @elseif(count($brokenLinks) === 0)
+        <x-ohdear-pulse::message title="No broken links reported">
+            Oh Dear has no broken links to report for this monitor. Results refresh every 15 minutes.
+        </x-ohdear-pulse::message>
+    @else
+        <div class="od:mt-4 od:max-h-80 od:overflow-auto" tabindex="0" role="region" aria-label="Broken links, scroll for more">
+            <table class="od:w-full od:min-w-[40rem] od:table-fixed od:text-left od:text-sm">
+                <thead class="od:text-xs od:text-gray-500 od:dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="od:w-24 od:pb-3 od:font-medium">HTTP status</th>
+                        <th scope="col" class="od:w-1/3 od:pb-3 od:font-medium">Broken link</th>
+                        <th scope="col" class="od:w-1/3 od:pb-3 od:font-medium">Found on</th>
+                        <th scope="col" class="od:pb-3 od:font-medium">Link text</th>
+                    </tr>
+                </thead>
+                <tbody class="od:divide-y od:divide-gray-100 od:dark:divide-gray-800">
+                    @foreach($brokenLinks as $brokenLink)
+                        <tr wire:key="broken-{{ $monitorId }}-{{ $loop->index }}">
+                            <td class="od:py-3 od:pr-3"><x-ohdear-pulse::response-code :code="$brokenLink->statusCode" /></td>
+                            <td class="od:py-1 od:pr-4">
+                                <x-ohdear-pulse::link :href="$brokenLink->crawledUrl" :title="$brokenLink->crawledUrl" class="od:max-w-full">
+                                    <span class="od:truncate">{{ $brokenLink->relativeCrawledUrl ?: $brokenLink->crawledUrl }}</span>
+                                </x-ohdear-pulse::link>
+                            </td>
+                            <td class="od:py-1 od:pr-4">
+                                <x-ohdear-pulse::link :href="$brokenLink->foundOnUrl" :title="$brokenLink->foundOnUrl" class="od:max-w-full">
+                                    <span class="od:truncate">{{ $brokenLink->relativeFoundOnUrl ?: $brokenLink->foundOnUrl }}</span>
+                                </x-ohdear-pulse::link>
+                            </td>
+                            <td class="od:truncate od:py-3" title="{{ $brokenLink->linkText }}">{{ $brokenLink->linkText ?: '—' }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-
-        <div>
-            <a href="https://ohdear.app/sites/{{config('services.oh_dear.pulse.site_id')}}/check/broken-links/report"
-               target="_blank"
-               class="text-xs font-bold text-gray-700 uppercase transition-colors dark:text-gray-400 hover:text-brand ">
-                <x-ohdear-pulse::logo-ohdear class="inline-block w-10"/>
-            </a>
-        </div>
-    </div>
-
-    <div class="mt-2">
-        <div class="flex flex-col gap-6">
-            <div>
-                @if(! $isConfigured)
-                    This card will display your broken links. Learn how to configure it <a
-                        href="https://ohdear.app/docs/cron-checks" target="_blank" class="underline">in our docs</a>.
-                @else
-
-                    <x-pulse::table class="w-full table-fixed">
-                        <x-pulse::thead>
-                            <tr>
-                                <x-pulse::th class="2xl:w-[7%] xl:w-[8%]  text-center truncate whitespace-nowrap">Status
-                                    code
-                                </x-pulse::th>
-                                <x-pulse::th class="w-[35%]"> Broken Link</x-pulse::th>
-                                <x-pulse::th class="w-[35%]">Found on</x-pulse::th>
-                                <x-pulse::th class="w-[20%]">Link text</x-pulse::th>
-                            </tr>
-                        </x-pulse::thead>
-                        <tbody>
-                        @foreach ($brokenLinks as $brokenLink)
-                            <tr class="h-2 first:h-0"></tr>
-                            <tr wire:key="brokenLink.{{ md5($brokenLink->crawledUrl) }}">
-                                <x-pulse::td class="px-4 dark:bg-gray-800">
-                                    <x-ohdear-pulse::response-code :code="$brokenLink->statusCode">
-                                        {{$brokenLink->statusCode}}
-                                    </x-ohdear-pulse::response-code>
-                                </x-pulse::td>
-                                <x-pulse::td class="w-[29%]  text-gray-700 dark:text-gray-300 dark:bg-gray-800">
-                                    <div class="w-full truncate">
-                                        <a target="_blank"
-                                           href="{{ $brokenLink->crawledUrl  }}">{{ $brokenLink->relativeCrawledUrl }}</a>
-                                    </div>
-                                </x-pulse::td>
-                                <x-pulse::td
-                                    class="max-w-[25%] text-gray-700 truncate dark:text-gray-300 dark:bg-gray-800">
-                                    <a target="_blank"
-                                       href="{{ $brokenLink->foundOnUrl  }}">{{ $brokenLink->relativeFoundOnUrl }}</a>
-                                </x-pulse::td>
-                                <x-pulse::td class="text-gray-700 truncate dark:text-gray-300 dark:bg-gray-800">
-                                    {{ $brokenLink->linkText }}
-                                </x-pulse::td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </x-pulse::table>
-                @endif
-            </div>
-        </div>
-    </div>
+        <p class="od:mt-2 od:text-xs od:text-gray-500 od:dark:text-gray-400">{{ count($brokenLinks) }} broken {{ count($brokenLinks) === 1 ? 'link' : 'links' }} · Scroll for more</p>
+    @endif
 </x-pulse::card>

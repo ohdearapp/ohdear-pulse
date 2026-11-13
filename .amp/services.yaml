@@ -1,0 +1,14 @@
+services:
+  dashboard:
+    command: OH_DEAR_API_TOKEN="${OH_DEAR_API_TOKEN:-$OHDEAR_API_TOKEN}" TESTBENCH_WORKING_PATH="$PWD" php -d variables_order=EGPCS -S 0.0.0.0:$PORT -t vendor/orchestra/testbench-core/laravel/public vendor/orchestra/testbench-core/laravel/server.php
+    port: 8000
+    env:
+      APP_ENV: local
+      APP_DEBUG: "false"
+      OH_DEAR_MONITOR_ID: "4505"
+      OH_DEAR_BROKEN_LINKS_MONITOR_ID: "2360"
+    review: true
+    portal:
+      url: /pulse
+      title: Oh Dear Pulse v2
+      description: Live Oh Dear API data in a Laravel 13 Pulse dashboard. Use the theme switcher to review both themes.

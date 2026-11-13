@@ -4,8 +4,8 @@ namespace OhDear\OhDearPulse;
 
 class OhDearPulse
 {
-    public static function isConfigured()
+    public static function isConfigured(): bool
     {
-        return config('services.oh_dear.pulse.api_key') !== null;
+        return filled(config('services.oh_dear.pulse.api_key'));
     }
 }
