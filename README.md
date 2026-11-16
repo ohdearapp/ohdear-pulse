@@ -9,13 +9,16 @@ This package contains Pulse cards that show results from [Oh Dear](https://ohdea
 
 Version 2 requires PHP 8.3 or newer, Laravel 13, and Laravel Pulse 1.10 or newer. It uses the current Oh Dear monitor API through the official PHP SDK 4.7 or newer. See [UPGRADING](UPGRADING.md) when coming from v1.
 
-There are three cards available:
+There are six cards available:
 
 - [Uptime and Performance](https://ohdear.app/docs/features/uptime-monitoring)
 - [Cron Job Monitoring](https://ohdear.app/docs/features/cron-job-monitoring)
 - [Broken links](https://ohdear.app/docs/features/broken-links-detection)
+- Certificate health, including the issuer, expiry date and individual certificate checks
+- Domain expiry and active registry statuses
+- Application health checks, including warnings, failures and snoozes
 
-These screenshots show all three cards with real Oh Dear API data:
+These screenshots show the uptime, scheduled-task and broken-link cards with real Oh Dear API data:
 
 ![Oh Dear cards in a light Pulse dashboard](docs/dashboard-light.jpg)
 ![Oh Dear cards in a dark Pulse dashboard](docs/dashboard-dark.jpg)
@@ -49,11 +52,14 @@ php artisan ohdear-pulse:verify
 
 ## Usage
 
-There are currently three cards available:
+The cards use these Livewire names:
 
 - `ohdear.pulse.uptime`: displays the uptime and performance of a site
 - `ohdear.pulse.cron`: displays the results of the cron job monitoring
 - `ohdear.pulse.brokenLinks`: displays any broken links that were detected
+- `ohdear.pulse.certificateHealth`: displays certificate validity and individual checks
+- `ohdear.pulse.domain`: displays the domain expiry date and registry statuses
+- `ohdear.pulse.applicationHealth`: displays individual application health results
 
 You can add the cards to your Pulse dashboard, by first publishing the Pulse's dashboard view:
 
@@ -70,6 +76,10 @@ Next, add the cards to the `resources/views/vendor/pulse/dashboard.blade.php` fi
     <livewire:ohdear.pulse.cron cols="8" />
 
     <livewire:ohdear.pulse.brokenLinks cols="8" />
+
+    <livewire:ohdear.pulse.certificateHealth cols="4" />
+    <livewire:ohdear.pulse.domain cols="4" />
+    <livewire:ohdear.pulse.applicationHealth cols="4" />
     
     {{-- Add more cards here --}}
 </x-pulse>
@@ -79,7 +89,11 @@ All cards accept an optional `:monitor-id="123"` attribute. Without it, they use
 
 The uptime card shows the latest measured HTTP response and a chronological, 20-minute sparkline. Empty API buckets are not measurements. Non-HTTP monitors show their uptime status without an HTTP chart. Scheduled tasks and broken links include every page of API results in keyboard-scrollable tables.
 
-Uptime data is cached for 30 seconds, scheduled tasks for one minute, and broken links for 15 minutes. Cache entries are scoped to the API token and monitor. The cards poll automatically and display recovery instructions if Oh Dear cannot be reached. Assets ship with the package; consumers do not need Node or a Tailwind build.
+Certificate, domain and application-health cards show the latest check results, not a history for Pulse's selected time range. They keep disabled, snoozed, pending and unavailable checks neutral. Empty detail responses show "No results" rather than a green success. Application warnings and failures raise the overall card severity, except for snoozed checks. Raw health metadata and registry responses stay on the server; labels, summaries and messages are escaped before display.
+
+Domain dates come from the registry. Missing expiry dates are shown as "Not provided by registry"; the card does not invent a renewal date or impose its own warning threshold. Oh Dear determines expiry warning and failure severity.
+
+Uptime and shared monitor data are cached for 30 seconds, scheduled tasks and the three new cards' detail data for one minute, and broken links for 15 minutes. Cache entries are scoped to the API token and monitor. The cards poll automatically and display recovery instructions if Oh Dear cannot be reached. Assets ship with the package; consumers do not need Node or a Tailwind build.
 
 ## Testing
 
@@ -102,7 +116,9 @@ composer build
 vendor/bin/testbench key:generate
 ```
 
-Add `OH_DEAR_API_TOKEN` and `OH_DEAR_MONITOR_ID` to the generated `vendor/orchestra/testbench-core/laravel/.env`, then run `composer start`. Optionally set `OH_DEAR_BROKEN_LINKS_MONITOR_ID` to show broken links from a different monitor. Open `/pulse` on the development server. The Workbench dashboard is local-only and does not replace your production Pulse authorization.
+Add `OH_DEAR_API_TOKEN` and `OH_DEAR_MONITOR_ID` to the generated `vendor/orchestra/testbench-core/laravel/.env`, then run `composer start`. Optionally set `OH_DEAR_BROKEN_LINKS_MONITOR_ID` or `OH_DEAR_DOMAIN_MONITOR_ID` to use a different monitor for those cards. Open `/pulse` on the development server. The Workbench dashboard is local-only and does not replace your production Pulse authorization.
+
+In the `local` environment, the dashboard also has a state picker. `/pulse?scenario=warning`, for example, renders the real cards against SDK HTTP fixtures without changing any Oh Dear monitors. It includes healthy, warning, failing, empty, unconfigured, API-error, loading, disabled, snoozed, pending, unsupported, unavailable, missing-expiry and individual application-status examples. The loading example freezes the cards' actual lazy-loading placeholders for inspection. Return to `/pulse` to use live API data. Preview middleware and fixtures are excluded from the distributed package.
 
 ## Changelog
 
