@@ -2,9 +2,9 @@
     @if($previewScenarios ?? [])
         <div class="od:text-sm od:text-gray-700 od:dark:text-gray-200" style="grid-column: 1 / -1">
             <nav aria-label="Card preview states" style="display: flex; flex-wrap: wrap; gap: 0 16px">
-                <x-ohdear-pulse::link href="/pulse">Live API</x-ohdear-pulse::link>
+                <a href="/pulse" class="od:inline-flex od:min-h-11 od:items-center od:underline od:underline-offset-4">Live API</a>
                 @foreach($previewScenarios as $scenario)
-                    <x-ohdear-pulse::link :href="'?scenario=' . $scenario" :aria-current="($previewScenario ?? null) === $scenario ? 'page' : null">{{ ucfirst(str_replace('-', ' ', $scenario)) }}</x-ohdear-pulse::link>
+                    <a href="?scenario={{ $scenario }}" class="od:inline-flex od:min-h-11 od:items-center od:underline od:underline-offset-4" @if(($previewScenario ?? null) === $scenario) aria-current="page" @endif>{{ ucfirst(str_replace('-', ' ', $scenario)) }}</a>
                 @endforeach
             </nav>
             <p>{{ ($previewScenario ?? null) ? 'HTTP fixtures · ' . ucfirst(str_replace('-', ' ', $previewScenario)) . ' · No production monitors changed' : 'Read-only live Oh Dear API data' }}</p>
