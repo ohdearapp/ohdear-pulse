@@ -7,6 +7,7 @@ services:
       APP_DEBUG: "false"
       OH_DEAR_MONITOR_ID: "4505"
       OH_DEAR_BROKEN_LINKS_MONITOR_ID: "2360"
+      OH_DEAR_DOMAIN_MONITOR_ID: "2546"
     review: true
     portal:
       url: /pulse

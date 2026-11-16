@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.1.0 - 2026-11-16
+
+- Add certificate health, domain expiry and application health Pulse cards.
+- Display certificate issuer, validity and individual checks; registry dates and active statuses; and application health summaries, messages and snoozes.
+- Keep empty, disabled, snoozed, pending and unavailable results neutral. Recover from API failures on refresh without breaking the dashboard.
+- Add a local Workbench state picker and support HTTPS previews behind a loopback proxy.
+- Document all six cards, add light and dark screenshots, and explain upgrading from v2.0.
+
+No configuration migration, database migration or consumer-side asset build is required.
+
 ## 2.0.1 - 2026-11-13
 
 - Upgrade the test suite to Pest 5 and PHPUnit 13.

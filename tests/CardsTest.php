@@ -3,8 +3,12 @@
 use Carbon\CarbonImmutable;
 use Livewire\Features\SupportLockedProperties\CannotUpdateLockedPropertyException;
 use Livewire\Livewire;
+use OhDear\OhDearPulse\Livewire\OhDearApplicationHealthCardComponent;
 use OhDear\OhDearPulse\Livewire\OhDearBrokenLinksCardComponent;
+use OhDear\OhDearPulse\Livewire\OhDearCertificateHealthCardComponent;
+use OhDear\OhDearPulse\Livewire\OhDearCheckCardComponent;
 use OhDear\OhDearPulse\Livewire\OhDearCronPulseCardComponent;
+use OhDear\OhDearPulse\Livewire\OhDearDomainCardComponent;
 use OhDear\OhDearPulse\Livewire\OhDearUptimePulseCardComponent;
 use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Http\Faking\MockClient;
@@ -25,6 +29,9 @@ dataset('cards', [
     'uptime' => OhDearUptimePulseCardComponent::class,
     'scheduled tasks' => OhDearCronPulseCardComponent::class,
     'broken links' => OhDearBrokenLinksCardComponent::class,
+    'certificate health' => OhDearCertificateHealthCardComponent::class,
+    'domain' => OhDearDomainCardComponent::class,
+    'application health' => OhDearApplicationHealthCardComponent::class,
 ]);
 
 it('renders configuration instructions without contacting the API', function (string $component, string $key, mixed $value) {
@@ -170,7 +177,7 @@ it('renders empty tables', function (string $component, string $message) {
 it('contains API errors to the affected card and recovers on refresh', function (string $component, int $status, string $message) {
     MockClient::global()->addResponses([
         MockResponse::make(['message' => 'sensitive-server-detail'], $status),
-        ...($component === OhDearUptimePulseCardComponent::class ? [MockResponse::make(monitorData())] : []),
+        ...($component === OhDearUptimePulseCardComponent::class || is_subclass_of($component, OhDearCheckCardComponent::class) ? [MockResponse::make(monitorData())] : []),
         MockResponse::make(['data' => [], 'meta' => ['current_page' => 1, 'last_page' => 1]]),
     ]);
 
