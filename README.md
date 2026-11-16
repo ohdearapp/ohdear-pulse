@@ -9,6 +9,8 @@ This package contains Pulse cards that show results from [Oh Dear](https://ohdea
 
 Version 2 requires PHP 8.3 or newer, Laravel 13, and Laravel Pulse 1.10 or newer. It uses the current Oh Dear monitor API through the official PHP SDK 4.7 or newer. See [UPGRADING](UPGRADING.md) when coming from v1.
 
+Version 2.1 adds certificate health, domain expiry and application health cards. Existing v2 configuration and cards continue to work unchanged. See the [card guide](docs/cards.md) for setup, result states and refresh intervals.
+
 There are six cards available:
 
 - [Uptime and Performance](https://ohdear.app/docs/features/uptime-monitoring)
@@ -17,6 +19,11 @@ There are six cards available:
 - Certificate health, including the issuer, expiry date and individual certificate checks
 - Domain expiry and active registry statuses
 - Application health checks, including warnings, failures and snoozes
+
+The three cards added in v2.1, using real Oh Dear API data:
+
+![Certificate, domain and application health in light mode](docs/checks-light.jpg)
+![Certificate, domain and application health in dark mode](docs/checks-dark.jpg)
 
 These screenshots show the uptime, scheduled-task and broken-link cards with real Oh Dear API data:
 
@@ -28,7 +35,7 @@ These screenshots show the uptime, scheduled-task and broken-link cards with rea
 You can install the package via composer:
 
 ```bash
-composer require ohdearapp/ohdear-pulse:^2.0
+composer require ohdearapp/ohdear-pulse:^2.1
 ```
 
 In your `config/services.php` file, add the following lines:

@@ -1,4 +1,24 @@
-# Upgrading from v1 to v2
+# Upgrading
+
+## From v2.0 to v2.1
+
+Version 2.1 adds three optional cards. Existing configuration, card names and PHP/Laravel requirements are unchanged.
+
+```bash
+composer require ohdearapp/ohdear-pulse:^2.1
+```
+
+Add any of these to your published Pulse dashboard:
+
+```blade
+<livewire:ohdear.pulse.certificateHealth cols="4" />
+<livewire:ohdear.pulse.domain cols="4" />
+<livewire:ohdear.pulse.applicationHealth cols="4" />
+```
+
+Each uses the configured monitor unless you supply `:monitor-id="123"`. Enable the corresponding check in Oh Dear. No database migration, new environment variable or consumer-side asset build is required. See the [card guide](docs/cards.md) for details and unavailable-result handling.
+
+## From v1 to v2
 
 Version 2 uses Oh Dear's monitor API. The old sites performance endpoint is no longer available. Upgrade the package and configuration together.
 
